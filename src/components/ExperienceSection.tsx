@@ -1,8 +1,12 @@
+
 import { motion } from "framer-motion";
 import { Badge } from "./ui/badge";
 import {
   Calendar,
   Building,
+  Laptop,
+  Cpu,
+  BarChart
 } from "lucide-react";
 import {
   Carousel,
