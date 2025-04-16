@@ -1,14 +1,16 @@
-
 import { motion } from "framer-motion";
 import { Badge } from "./ui/badge";
 import {
   Calendar,
-  Laptop,
-  Briefcase,
-  Cpu,
-  BarChart,
   Building,
 } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface ExperienceItem {
   title: string;
@@ -66,27 +68,6 @@ const experienceData: ExperienceItem[] = [
 ];
 
 export function ExperienceSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
     <section id="experience" className="py-20 md:py-32 relative">
       <div className="container mx-auto px-4">
@@ -105,74 +86,66 @@ export function ExperienceSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="relative">
-            {/* Timeline connector line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border transform md:-translate-x-1/2" />
+        <div className="max-w-6xl mx-auto">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="py-4">
+              {experienceData.map((experience, index) => (
+                <CarouselItem key={index} className="sm:basis-1/2 lg:basis-1/3">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <div className="glass-card group h-full p-6 mx-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-xl font-semibold tech-gradient-text">{experience.title}</h3>
+                        <div className="flex items-center text-foreground/70 text-sm">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          <span>{experience.period}</span>
+                        </div>
+                      </div>
 
-            {experienceData.map((experience, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className={`relative mb-12 md:mb-24 ${
-                  index % 2 === 0 ? "md:pr-12 md:text-right md:ml-auto md:mr-[50%]" : "md:pl-12 md:ml-[50%]"
-                }`}
-              >
-                {/* Timeline dot */}
-                <div
-  className={`absolute top-7 w-5 h-5 rounded-full bg-primary transform z-10 ${
-    index % 2 === 0
-      ? 'left-0 md:left-1 md:-translate-x-1/2'
-      : 'left-0 md:left-[calc(100%-1.25rem)] md:translate-x-1/2'
-  }`}
-/>
+                      <div className="flex items-center gap-1 mb-4">
+                        <Building className="w-4 h-4 text-foreground/70" />
+                        <p className="text-foreground/70">
+                          {experience.company} • {experience.location}
+                        </p>
+                      </div>
 
+                      <div className="space-y-2 mb-4 overflow-hidden transition-all duration-300">
+                        <ul className="space-y-2">
+                          {experience.description.map((item, idx) => (
+                            <li key={idx} className="text-foreground/80 flex items-start">
+                              <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary/80 mt-2 mr-2 flex-shrink-0"></span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                
-                {/* Experience card */}
-                <div className="glass-card ml-8 md:ml-0 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-semibold tech-gradient-text">{experience.title}</h3>
-                    <div className="flex items-center text-foreground/70 text-sm">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      <span>{experience.period}</span>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {experience.technologies.map((tech, idx) => (
+                          <Badge key={idx} variant="secondary" className="skill-badge">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-1 mb-4">
-                    <Building className="w-4 h-4 text-foreground/70" />
-                    <p className="text-foreground/70">
-                      {experience.company} • {experience.location}
-                    </p>
-                  </div>
-
-                  <ul className="mb-5 space-y-2">
-                    {experience.description.map((item, idx) => (
-                      <li key={idx} className="text-foreground/80 flex items-start">
-                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary/80 mt-2 mr-2 flex-shrink-0"></span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex flex-wrap gap-2">
-                    {experience.technologies.map((tech, idx) => (
-                      <Badge key={idx} variant="secondary" className="skill-badge">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                  </motion.div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
+        </div>
       </div>
     </section>
   );
