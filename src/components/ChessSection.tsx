@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Chessboard } from "react-chessboard";
@@ -6,7 +5,6 @@ import { Chess } from "chess.js";
 import { Button } from "./ui/button";
 import { RotateCw, Award, AlertTriangle } from "lucide-react";
 
-// Sample puzzles - in a real app, this would be loaded from a JSON file
 const chessPuzzles = [
   {
     id: 1,
@@ -40,7 +38,6 @@ export function ChessSection() {
   const [moveHistory, setMoveHistory] = useState<string[]>([]);
   const [playerTurn, setPlayerTurn] = useState(false);
 
-  // Initialize the puzzle
   const initializePuzzle = (puzzleIndex: number = 0) => {
     const puzzle = chessPuzzles[puzzleIndex];
     const newGame = new Chess(puzzle.fen);
@@ -52,7 +49,6 @@ export function ChessSection() {
     setShowHint(false);
     setMoveHistory([]);
     
-    // Computer makes the first move
     setTimeout(() => {
       if (puzzle.moves && puzzle.moves.length > 0) {
         makeComputerMove(newGame, puzzle.moves[0]);
@@ -62,7 +58,6 @@ export function ChessSection() {
     }, 500);
   };
 
-  // Make computer move
   const makeComputerMove = (gameInstance: Chess, moveNotation: string) => {
     const from = moveNotation.substring(0, 2);
     const to = moveNotation.substring(2, 4);
@@ -71,10 +66,10 @@ export function ChessSection() {
       gameInstance.move({
         from: from,
         to: to,
-        promotion: "q" // Always promote to queen for simplicity
+        promotion: "q"
       });
       
-      setGame(new Chess(gameInstance.fen())); // Update the board
+      setGame(new Chess(gameInstance.fen()));
       const newMoveHistory = [...moveHistory, `${from}-${to}`];
       setMoveHistory(newMoveHistory);
     } catch (error) {
@@ -82,49 +77,39 @@ export function ChessSection() {
     }
   };
 
-  // Handle player move
   const onDrop = (sourceSquare: string, targetSquare: string) => {
     if (!playerTurn) return false;
     
     try {
-      // Try to make the move
       const move = game.move({
         from: sourceSquare,
         to: targetSquare,
-        promotion: "q" // Always promote to queen for simplicity
+        promotion: "q"
       });
       
-      // If the move is invalid, return false to reject it
       if (move === null) return false;
       
       const expectedMove = currentPuzzle.moves[currentMoveIndex];
       const playerMoveNotation = sourceSquare + targetSquare;
       
-      // Check if the move is correct
       if (playerMoveNotation === expectedMove) {
         setStatus("Correct move!");
         const newMoveHistory = [...moveHistory, `${sourceSquare}-${targetSquare}`];
         setMoveHistory(newMoveHistory);
         
-        // If there are more moves in the puzzle
         if (currentMoveIndex + 1 < currentPuzzle.moves.length) {
           setPlayerTurn(false);
           
-          // Computer makes the next move after a brief delay
           setTimeout(() => {
             makeComputerMove(game, currentPuzzle.moves[currentMoveIndex + 1]);
             setCurrentMoveIndex(currentMoveIndex + 2);
             setPlayerTurn(true);
           }, 500);
         } else {
-          // Puzzle completed
           setStatus("Puzzle solved! Well done!");
         }
       } else {
-        // Incorrect move
         setStatus("Incorrect move. Try again!");
-        
-        // Revert the move
         game.undo();
         setGame(new Chess(game.fen()));
         return false;
@@ -137,25 +122,21 @@ export function ChessSection() {
     }
   };
 
-  // Show hint by highlighting the correct move
   const handleShowHint = () => {
     setShowHint(true);
     setTimeout(() => setShowHint(false), 2000);
   };
 
-  // Reset the current puzzle
   const handleReset = () => {
     initializePuzzle(chessPuzzles.indexOf(currentPuzzle));
   };
 
-  // Load next puzzle
   const handleNextPuzzle = () => {
     const currentIndex = chessPuzzles.indexOf(currentPuzzle);
     const nextIndex = (currentIndex + 1) % chessPuzzles.length;
     initializePuzzle(nextIndex);
   };
 
-  // Initialize on component mount
   useEffect(() => {
     initializePuzzle();
   }, []);
@@ -197,11 +178,21 @@ export function ChessSection() {
                   boardWidth={500}
                   areArrowsAllowed={true}
                   customBoardStyle={{
-                    borderRadius: "4px",
-                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                    borderRadius: "8px",
+                    boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
                   }}
-                  customDarkSquareStyle={{ backgroundColor: "var(--secondary)" }}
-                  customLightSquareStyle={{ backgroundColor: "var(--primary)" }}
+                  customDarkSquareStyle={{ 
+                    backgroundColor: "hsl(var(--secondary))",
+                    transition: "background-color 0.2s ease"
+                  }}
+                  customLightSquareStyle={{ 
+                    backgroundColor: "hsl(var(--background))",
+                    transition: "background-color 0.2s ease"
+                  }}
+                  customPieceStyle={{
+                    transition: "transform 0.2s ease",
+                    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.2))"
+                  }}
                 />
               </div>
             </motion.div>
@@ -260,7 +251,6 @@ export function ChessSection() {
               </div>
             </div>
             
-            {/* Move History */}
             <div>
               <h4 className="font-medium mb-2">Move History:</h4>
               <div className="bg-background/50 p-3 rounded-md h-36 overflow-y-auto">
