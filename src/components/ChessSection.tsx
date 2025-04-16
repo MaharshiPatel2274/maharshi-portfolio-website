@@ -189,10 +189,6 @@ export function ChessSection() {
                     backgroundColor: "hsl(var(--background))",
                     transition: "background-color 0.2s ease"
                   }}
-                  customPieceStyle={{
-                    transition: "transform 0.2s ease",
-                    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.2))"
-                  }}
                 />
               </div>
             </motion.div>
