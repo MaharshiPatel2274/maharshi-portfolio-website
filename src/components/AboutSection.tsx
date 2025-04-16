@@ -1,5 +1,6 @@
 
 import { motion } from "framer-motion";
+import { Avatar } from "./ui/avatar";
 
 export function AboutSection() {
   return (
@@ -17,12 +18,11 @@ export function AboutSection() {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm">
-              {/* Placeholder for photo */}
-              <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                Photo coming soon
-              </div>
-            </div>
+            <img
+              src="/lovable-uploads/e20f99cf-8f34-4f36-ac44-59e1b164a765.png"
+              alt="Maharshi at sunset"
+              className="object-cover w-full h-full rounded-xl"
+            />
           </motion.div>
           
           <div className="space-y-6">
