@@ -42,7 +42,7 @@ export function AboutSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              Hi, I'm Maharshi — a VR enthusiast, software engineer, and student at ASU passionate about blending immersive tech with innovative software.
+              Hi, I’m Maharshi Niraj Patel — a computer science student, immersive tech enthusiast, and problem-solver with a passion for building human-centered experiences. Whether I’m leading QA for cutting-edge VR simulations, engineering tools that enhance user interaction, or developing intelligent systems with real-world impact, I bring curiosity, creativity, and a drive to learn into every project. From designing accessible platforms to automating workflows with AI, I’m always exploring ways to bridge technology and thoughtful design. Welcome to my portfolio — a collection of what I’ve built, learned, and loved working on.
             </motion.p>
           </div>
         </div>
