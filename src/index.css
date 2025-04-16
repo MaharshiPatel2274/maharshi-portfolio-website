@@ -187,3 +187,10 @@
 .animate-glow {
   animation: glow 1.5s infinite;
 }
+
+/* Pulse glow animation for highlighted squares */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+

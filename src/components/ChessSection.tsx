@@ -297,8 +297,10 @@ export function ChessSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
               className={`glass-card p-6 rounded-lg ${boardShake ? 'animate-shake' : ''}`}
-              animate={{ x: boardShake ? [-5, 5, -5, 5, 0] : 0 }}
-              style={{ boxShadow: puzzleSolved ? "0 0 20px rgba(var(--primary), 0.5)" : "" }}
+              // Fix: Use a CSS class for animation instead of directly animating x with array
+              style={{ 
+                boxShadow: puzzleSolved ? "0 0 20px rgba(var(--primary), 0.5)" : ""
+              }}
             >
               <div className="flex flex-col items-center mb-4">
                 <Badge variant="outline" className="mb-2 text-sm px-3 py-1 bg-muted/50">
