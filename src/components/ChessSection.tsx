@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Chessboard } from "react-chessboard";
-import { Chess } from "chess.js";
+import { Chess, Square } from "chess.js";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -84,8 +84,8 @@ export function ChessSection() {
   }, []);
 
   const makeComputerMove = (gameInstance: Chess, moveNotation: string) => {
-    const from = moveNotation.substring(0, 2);
-    const to = moveNotation.substring(2, 4);
+    const from = moveNotation.substring(0, 2) as Square;
+    const to = moveNotation.substring(2, 4) as Square;
     
     try {
       const move = gameInstance.move({
@@ -122,8 +122,8 @@ export function ChessSection() {
     
     try {
       const move = game.move({
-        from: sourceSquare,
-        to: targetSquare,
+        from: sourceSquare as Square,
+        to: targetSquare as Square,
         promotion: "q"
       });
       
@@ -245,9 +245,9 @@ export function ChessSection() {
 
     const highlights: Record<string, string> = {};
     try {
-      const piece = game.get(square);
+      const piece = game.get(square as Square);
       if (piece && piece.color === game.turn()) {
-        const moves = game.moves({ square, verbose: true });
+        const moves = game.moves({ square: square as Square, verbose: true });
         moves.forEach((move) => {
           highlights[move.to] = "rgba(0, 255, 0, 0.2)";
         });
@@ -362,16 +362,13 @@ export function ChessSection() {
                   }}
                   customBoardStyle={{
                     borderRadius: "8px",
-                    boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
-                    transition: "all 0.3s ease"
+                    boxShadow: "0 8px 16px rgba(0,0,0,0.2)"
                   }}
                   customDarkSquareStyle={{ 
-                    backgroundColor: "hsl(var(--secondary))",
-                    transition: "background-color 0.2s ease"
+                    backgroundColor: "hsl(var(--secondary))"
                   }}
                   customLightSquareStyle={{ 
-                    backgroundColor: "hsl(var(--background))",
-                    transition: "background-color 0.2s ease"
+                    backgroundColor: "hsl(var(--background))"
                   }}
                 />
               </div>
@@ -450,8 +447,8 @@ export function ChessSection() {
           </motion.div>
         </div>
       </div>
-      
-      <style jsx global>{`
+
+      <style jsx>{`
         @keyframes shake {
           0%, 100% { transform: translateX(0); }
           10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
