@@ -296,7 +296,7 @@ export function ChessSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
-              className={`glass-card p-6 rounded-lg ${boardShake ? 'animate-[shake_0.5s_ease-in-out]' : ''}`}
+              className={`glass-card p-6 rounded-lg ${boardShake ? 'animate-shake' : ''}`}
               animate={{ x: boardShake ? [-5, 5, -5, 5, 0] : 0 }}
               style={{ boxShadow: puzzleSolved ? "0 0 20px rgba(var(--primary), 0.5)" : "" }}
             >
@@ -447,14 +447,6 @@ export function ChessSection() {
           </motion.div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-          20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-      `}</style>
     </section>
   );
 }
