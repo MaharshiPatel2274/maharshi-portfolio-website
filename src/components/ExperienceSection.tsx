@@ -125,7 +125,15 @@ export function ExperienceSection() {
                 }`}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-0 md:left-1/2 top-7 w-5 h-5 rounded-full bg-primary transform -translate-x-1/2 z-10" />
+                <div
+  className={`absolute top-7 w-5 h-5 rounded-full bg-primary transform z-10 ${
+    index % 2 === 0
+      ? 'left-0 md:left-1 md:-translate-x-1/2'
+      : 'left-0 md:left-[calc(100%-1.25rem)] md:translate-x-1/2'
+  }`}
+/>
+
+
                 
                 {/* Experience card */}
                 <div className="glass-card ml-8 md:ml-0 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
