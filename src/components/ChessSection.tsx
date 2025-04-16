@@ -12,7 +12,7 @@ const chessPuzzles = [
   {
     id: 1,
     fen: "r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3P1N2/PPP2PPP/RNBQKB1R w KQkq - 0 4",
-    moves: ["e4e5", "f6e4", "d3e4"],
+    moves: ["d3e4", "f6e4", "f3e5"],
     difficulty: "Easy",
     name: "Basic Knight Capture"
   },
@@ -297,7 +297,6 @@ export function ChessSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
               className={`glass-card p-6 rounded-lg ${boardShake ? 'animate-shake' : ''}`}
-              // Fix: Use a CSS class for animation instead of directly animating x with array
               style={{ 
                 boxShadow: puzzleSolved ? "0 0 20px rgba(var(--primary), 0.5)" : ""
               }}
