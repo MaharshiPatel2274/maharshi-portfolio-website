@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Chessboard } from "react-chessboard";
@@ -6,113 +5,19 @@ import { Chess } from "chess.js";
 import { Button } from "./ui/button";
 import { RotateCw, Award, AlertTriangle, RefreshCw } from "lucide-react";
 import { toast } from "./ui/use-toast";
-
-// Interface for Lichess puzzle data
-interface LichessPuzzle {
-  id: string;
-  fen: string;
-  moves: string[];
-  rating: number;
-  themes: string[];
-  popularity: number;
-}
+import { Card, CardContent } from "./ui/card";
+import { chessPuzzles, isWhiteTurn } from "@/utils/chessUtils";
 
 export function ChessSection() {
   const [game, setGame] = useState(new Chess());
-  const [currentPuzzle, setCurrentPuzzle] = useState<LichessPuzzle | null>(null);
+  const [currentPuzzle, setCurrentPuzzle] = useState<any | null>(null);
   const [currentMoveIndex, setCurrentMoveIndex] = useState(0);
   const [status, setStatus] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [moveHistory, setMoveHistory] = useState<string[]>([]);
   const [playerTurn, setPlayerTurn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [puzzleData, setPuzzleData] = useState<LichessPuzzle[]>([]);
-
-  // Fallback puzzles in case API fails
-  const fallbackPuzzles = [
-    {
-      id: "abc123",
-      fen: "r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3P1N2/PPP2PPP/RNBQKB1R w KQkq - 0 4",
-      moves: ["e4e5", "f6e4", "d3e4"],
-      rating: 1200,
-      themes: ["opening", "capture"],
-      popularity: 80
-    },
-    {
-      id: "def456",
-      fen: "r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
-      moves: ["c4f7", "e8f7", "f3e5", "f7e8", "e5d7"],
-      rating: 1500,
-      themes: ["sacrifice", "mate"],
-      popularity: 90
-    },
-    {
-      id: "ghi789",
-      fen: "r2qkb1r/pp2nppp/3p4/2pNN3/2BnP3/3P4/PPP2PPP/R1BQK2R w KQkq - 1 9",
-      moves: ["d5f6", "g7f6", "e5g6", "h7g6", "c4f7"],
-      rating: 1800,
-      themes: ["sacrifice", "tactical"],
-      popularity: 85
-    }
-  ];
-
-  // Fetch puzzles from Lichess API
-  const fetchPuzzles = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch('https://lichess.org/api/puzzle/daily');
-      
-      if (response.ok) {
-        const data = await response.json();
-        
-        // Transform the Lichess puzzle format to our format
-        const newPuzzle: LichessPuzzle = {
-          id: data.puzzle.id,
-          fen: data.game.fen,
-          moves: data.puzzle.solution,
-          rating: data.puzzle.rating,
-          themes: data.puzzle.themes,
-          popularity: data.puzzle.popularity || 70
-        };
-        
-        setPuzzleData([newPuzzle, ...fallbackPuzzles]);
-        setIsLoading(false);
-      } else {
-        throw new Error('Failed to fetch puzzle');
-      }
-    } catch (error) {
-      console.error('Error fetching puzzles:', error);
-      setPuzzleData(fallbackPuzzles);
-      toast({
-        title: "Couldn't fetch new puzzles",
-        description: "Using local puzzles instead",
-        variant: "destructive"
-      });
-      setIsLoading(false);
-    }
-  };
-
-  const initializePuzzle = (puzzleIndex: number = 0) => {
-    if (puzzleData.length === 0) return;
-    
-    const puzzle = puzzleData[puzzleIndex];
-    const newGame = new Chess(puzzle.fen);
-    
-    setGame(newGame);
-    setCurrentPuzzle(puzzle);
-    setCurrentMoveIndex(0);
-    setStatus("");
-    setShowHint(false);
-    setMoveHistory([]);
-    
-    setTimeout(() => {
-      if (puzzle.moves && puzzle.moves.length > 0) {
-        makeComputerMove(newGame, puzzle.moves[0]);
-        setCurrentMoveIndex(1);
-        setPlayerTurn(true);
-      }
-    }, 500);
-  };
+  const [puzzleData, setPuzzleData] = useState<any[]>([]);
 
   const makeComputerMove = (gameInstance: Chess, moveNotation: string) => {
     const from = moveNotation.substring(0, 2);
@@ -221,11 +126,12 @@ export function ChessSection() {
   };
 
   const handleFetchNewPuzzle = () => {
-    fetchPuzzles();
+    // fetchPuzzles();
   };
 
   useEffect(() => {
-    fetchPuzzles();
+    setPuzzleData(chessPuzzles);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -233,6 +139,32 @@ export function ChessSection() {
       initializePuzzle(0);
     }
   }, [puzzleData]);
+
+  const initializePuzzle = (puzzleIndex: number = 0) => {
+    if (puzzleData.length === 0) return;
+    
+    const puzzle = puzzleData[puzzleIndex];
+    const newGame = new Chess(puzzle.fen);
+    
+    setGame(newGame);
+    setCurrentPuzzle(puzzle);
+    setCurrentMoveIndex(0);
+    setStatus("");
+    setShowHint(false);
+    setMoveHistory([]);
+    setPlayerTurn(isWhiteTurn(puzzle.fen));
+    
+    if (!isWhiteTurn(puzzle.fen)) {
+      // If it's black's turn, make the first computer move after a short delay
+      setTimeout(() => {
+        if (puzzle.moves && puzzle.moves.length > 0) {
+          makeComputerMove(newGame, puzzle.moves[0]);
+          setCurrentMoveIndex(1);
+          setPlayerTurn(true);
+        }
+      }, 500);
+    }
+  };
 
   // Custom wooden board theme
   const customBoardStyles = {
@@ -275,15 +207,13 @@ export function ChessSection() {
               transition={{ duration: 0.5 }}
               className="glass-card p-6 rounded-lg"
             >
-              {isLoading ? (
-                <div className="w-full max-w-[500px] mx-auto flex items-center justify-center" style={{ aspectRatio: "1/1" }}>
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-                </div>
-              ) : (
-                <div 
-                  className="w-full max-w-[500px] mx-auto"
-                  style={{ aspectRatio: "1/1" }}
-                >
+            {isLoading ? (
+              <div className="w-full max-w-[500px] mx-auto flex items-center justify-center" style={{ aspectRatio: "1/1" }}>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+              </div>
+            ) : (
+              <>
+                <div className="w-full max-w-[500px] mx-auto" style={{ aspectRatio: "1/1" }}>
                   <Chessboard 
                     position={game.fen()} 
                     onPieceDrop={onDrop}
@@ -294,7 +224,18 @@ export function ChessSection() {
                     customLightSquareStyle={customBoardStyles.lightSquareStyle}
                   />
                 </div>
-              )}
+                <div className="mt-4 text-center">
+                  <Card>
+                    <CardContent className="pt-6">
+                      <p className="text-lg font-medium">
+                        Current Turn: {playerTurn ? "White" : "Black"}
+                        {playerTurn ? " (Your Turn)" : " (Computer's Turn)"}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            )}
             </motion.div>
           </div>
 
