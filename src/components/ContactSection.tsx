@@ -2,8 +2,77 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import { Button } from "./ui/button";
+import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
+import { useToast } from "@/hooks/use-toast";
+import { useRef, useState } from "react";
+import { 
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "./ui/form";
+import { Textarea } from "./ui/textarea";
+
+type FormValues = {
+  name: string;
+  email: string;
+  message: string;
+};
 
 export function ContactSection() {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const form = useForm<FormValues>({
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        "service_lxfwpdg", // Create a service on emailjs.com and replace with your service ID
+        "template_p9yf94j", // Create a template on emailjs.com and replace with your template ID
+        {
+          from_name: data.name,
+          reply_to: data.email,
+          message: data.message,
+          to_email: "maharshipatel2274@gmail.com", // Your email address
+        },
+        "rswQO4WwpOTNZ0-Xr" // Replace with your EmailJS public key
+      );
+      
+      if (result.status === 200) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for your message. I'll get back to you soon.",
+        });
+        
+        // Reset form
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast({
+        title: "Error sending message",
+        description: "Please try again later or contact me directly via email.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-20 md:py-32 relative">
       <div className="container mx-auto px-4">
@@ -96,45 +165,76 @@ export function ContactSection() {
               <div>
                 <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
                 
-                <form className="space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-1">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full p-2 rounded-md border border-border bg-background/50"
-                      placeholder="Your Name"
+                <Form {...form}>
+                  <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sm font-medium">Name</FormLabel>
+                          <FormControl>
+                            <input
+                              {...field}
+                              className="w-full p-2 rounded-md border border-border bg-background/50"
+                              placeholder="Your Name"
+                              required
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-1">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full p-2 rounded-md border border-border bg-background/50"
-                      placeholder="your.email@example.com"
+                    
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sm font-medium">Email</FormLabel>
+                          <FormControl>
+                            <input
+                              {...field}
+                              type="email"
+                              className="w-full p-2 rounded-md border border-border bg-background/50"
+                              placeholder="your.email@example.com"
+                              required
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-1">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={4}
-                      className="w-full p-2 rounded-md border border-border bg-background/50"
-                      placeholder="Your message..."
-                    ></textarea>
-                  </div>
-                  
-                  <Button className="w-full">Send Message</Button>
-                </form>
+                    
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sm font-medium">Message</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              {...field}
+                              rows={4}
+                              className="w-full p-2 rounded-md border border-border bg-background/50"
+                              placeholder="Your message..."
+                              required
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <Button 
+                      type="submit" 
+                      className="w-full" 
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </form>
+                </Form>
               </div>
             </div>
           </motion.div>
