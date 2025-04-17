@@ -106,8 +106,9 @@ export function ExperienceSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="h-full" // Add this to ensure full height
                   >
-                    <div className="glass-card group h-full p-6 mx-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div className="glass-card group h-full p-6 mx-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"> {/* Added flex flex-col to maintain consistent layout */}
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-xl font-semibold tech-gradient-text">{experience.title}</h3>
                         <div className="flex items-center text-foreground/70 text-sm">
@@ -123,7 +124,7 @@ export function ExperienceSection() {
                         </p>
                       </div>
 
-                      <div className="space-y-2 mb-4 overflow-hidden transition-all duration-300">
+                      <div className="space-y-2 mb-4 flex-grow overflow-hidden transition-all duration-300"> {/* Added flex-grow */}
                         <ul className="space-y-2">
                           {experience.description.map((item, idx) => (
                             <li key={idx} className="text-foreground/80 flex items-start">
