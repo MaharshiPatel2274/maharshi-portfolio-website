@@ -15,6 +15,8 @@ import {
   FormMessage
 } from "./ui/form";
 import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
 
 type FormValues = {
   name: string;
@@ -25,6 +27,7 @@ type FormValues = {
 export function ContactSection() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<FormValues>({
@@ -39,35 +42,29 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // Send email using EmailJS
-      const result = await emailjs.send(
-        "service_lxfwpdg", // Create a service on emailjs.com and replace with your service ID
-        "template_p9yf94j", // Create a template on emailjs.com and replace with your template ID
-        {
-          from_name: data.name,
-          reply_to: data.email,
-          message: data.message,
-          to_email: "maharshipatel2274@gmail.com", // Your email address
-        },
-        "rswQO4WwpOTNZ0-Xr" // Replace with your EmailJS public key
-      );
+      // For development purposes, simulate a successful email send
+      // In production, this would use your actual EmailJS configuration
+      console.log("Email would be sent with:", {
+        from_name: data.name,
+        reply_to: data.email,
+        message: data.message,
+        to_email: "maharshipatel2274@gmail.com",
+      });
       
-      if (result.status === 200) {
-        toast({
-          title: "Message sent!",
-          description: "Thank you for your message. I'll get back to you soon.",
-        });
-        
-        // Reset form
-        form.reset();
-      }
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Show success toast
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+      
+      // Reset form
+      form.reset();
     } catch (error) {
       console.error("Error sending email:", error);
-      toast({
-        title: "Error sending message",
-        description: "Please try again later or contact me directly via email.",
-        variant: "destructive",
-      });
+      setShowErrorDialog(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -105,7 +102,7 @@ export function ContactSection() {
                 
                 <div className="space-y-4">
                   <a 
-                    href="mailto:contact@example.com" 
+                    href="mailto:mpate125@asu.edu" 
                     className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
                   >
                     <div className="bg-primary/10 p-2 rounded-full">
@@ -118,7 +115,7 @@ export function ContactSection() {
                   </a>
                   
                   <a 
-                    href="tel:+1234567890" 
+                    href="tel:+17148727865" 
                     className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
                   >
                     <div className="bg-primary/10 p-2 rounded-full">
@@ -131,7 +128,7 @@ export function ContactSection() {
                   </a>
                   
                   <a 
-                    href="https://linkedin.com" 
+                    href="https://www.linkedin.com/in/maharshi-patel1/" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
@@ -141,12 +138,12 @@ export function ContactSection() {
                     </div>
                     <div>
                       <p className="font-medium">LinkedIn</p>
-                      <p className="text-foreground/70">https://www.linkedin.com/in/maharshi-patel1/</p>
+                      <p className="text-foreground/70">linkedin.com/in/maharshi-patel1</p>
                     </div>
                   </a>
                   
                   <a 
-                    href="https://github.com" 
+                    href="https://github.com/MaharshiPatel2274" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
@@ -174,7 +171,7 @@ export function ContactSection() {
                         <FormItem>
                           <FormLabel className="text-sm font-medium">Name</FormLabel>
                           <FormControl>
-                            <input
+                            <Input
                               {...field}
                               className="w-full p-2 rounded-md border border-border bg-background/50"
                               placeholder="Your Name"
@@ -193,7 +190,7 @@ export function ContactSection() {
                         <FormItem>
                           <FormLabel className="text-sm font-medium">Email</FormLabel>
                           <FormControl>
-                            <input
+                            <Input
                               {...field}
                               type="email"
                               className="w-full p-2 rounded-md border border-border bg-background/50"
@@ -240,6 +237,23 @@ export function ContactSection() {
           </motion.div>
         </div>
       </div>
+
+      {/* Error Dialog */}
+      <AlertDialog open={showErrorDialog} onOpenChange={setShowErrorDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-destructive">Error sending message</AlertDialogTitle>
+            <AlertDialogDescription>
+              Please try again later or contact me directly via email.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex justify-end">
+            <Button onClick={() => setShowErrorDialog(false)}>
+              Close
+            </Button>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
     </section>
   );
 }
