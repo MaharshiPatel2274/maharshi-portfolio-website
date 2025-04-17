@@ -1,45 +1,101 @@
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { Button } from "./ui/button";
-import { RotateCw, Award, AlertTriangle } from "lucide-react";
+import { RotateCw, Award, AlertTriangle, RefreshCw } from "lucide-react";
+import { toast } from "./ui/use-toast";
 
-const chessPuzzles = [
-  {
-    id: 1,
-    fen: "r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3P1N2/PPP2PPP/RNBQKB1R w KQkq - 0 4",
-    moves: ["e4e5", "f6e4", "d3e4"],
-    difficulty: "Easy",
-    name: "Basic Knight Capture"
-  },
-  {
-    id: 2,
-    fen: "r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
-    moves: ["c4f7", "e8f7", "f3e5", "f7e8", "e5d7"],
-    difficulty: "Medium",
-    name: "Bishop Sacrifice"
-  },
-  {
-    id: 3,
-    fen: "r2qkb1r/pp2nppp/3p4/2pNN3/2BnP3/3P4/PPP2PPP/R1BQK2R w KQkq - 1 9",
-    moves: ["d5f6", "g7f6", "e5g6", "h7g6", "c4f7"],
-    difficulty: "Hard",
-    name: "Double Knight Sacrifice"
-  }
-];
+// Interface for Lichess puzzle data
+interface LichessPuzzle {
+  id: string;
+  fen: string;
+  moves: string[];
+  rating: number;
+  themes: string[];
+  popularity: number;
+}
 
 export function ChessSection() {
   const [game, setGame] = useState(new Chess());
-  const [currentPuzzle, setCurrentPuzzle] = useState(chessPuzzles[0]);
+  const [currentPuzzle, setCurrentPuzzle] = useState<LichessPuzzle | null>(null);
   const [currentMoveIndex, setCurrentMoveIndex] = useState(0);
   const [status, setStatus] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [moveHistory, setMoveHistory] = useState<string[]>([]);
   const [playerTurn, setPlayerTurn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [puzzleData, setPuzzleData] = useState<LichessPuzzle[]>([]);
+
+  // Fallback puzzles in case API fails
+  const fallbackPuzzles = [
+    {
+      id: "abc123",
+      fen: "r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3P1N2/PPP2PPP/RNBQKB1R w KQkq - 0 4",
+      moves: ["e4e5", "f6e4", "d3e4"],
+      rating: 1200,
+      themes: ["opening", "capture"],
+      popularity: 80
+    },
+    {
+      id: "def456",
+      fen: "r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
+      moves: ["c4f7", "e8f7", "f3e5", "f7e8", "e5d7"],
+      rating: 1500,
+      themes: ["sacrifice", "mate"],
+      popularity: 90
+    },
+    {
+      id: "ghi789",
+      fen: "r2qkb1r/pp2nppp/3p4/2pNN3/2BnP3/3P4/PPP2PPP/R1BQK2R w KQkq - 1 9",
+      moves: ["d5f6", "g7f6", "e5g6", "h7g6", "c4f7"],
+      rating: 1800,
+      themes: ["sacrifice", "tactical"],
+      popularity: 85
+    }
+  ];
+
+  // Fetch puzzles from Lichess API
+  const fetchPuzzles = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('https://lichess.org/api/puzzle/daily');
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Transform the Lichess puzzle format to our format
+        const newPuzzle: LichessPuzzle = {
+          id: data.puzzle.id,
+          fen: data.game.fen,
+          moves: data.puzzle.solution,
+          rating: data.puzzle.rating,
+          themes: data.puzzle.themes,
+          popularity: data.puzzle.popularity || 70
+        };
+        
+        setPuzzleData([newPuzzle, ...fallbackPuzzles]);
+        setIsLoading(false);
+      } else {
+        throw new Error('Failed to fetch puzzle');
+      }
+    } catch (error) {
+      console.error('Error fetching puzzles:', error);
+      setPuzzleData(fallbackPuzzles);
+      toast({
+        title: "Couldn't fetch new puzzles",
+        description: "Using local puzzles instead",
+        variant: "destructive"
+      });
+      setIsLoading(false);
+    }
+  };
 
   const initializePuzzle = (puzzleIndex: number = 0) => {
-    const puzzle = chessPuzzles[puzzleIndex];
+    if (puzzleData.length === 0) return;
+    
+    const puzzle = puzzleData[puzzleIndex];
     const newGame = new Chess(puzzle.fen);
     
     setGame(newGame);
@@ -61,12 +117,13 @@ export function ChessSection() {
   const makeComputerMove = (gameInstance: Chess, moveNotation: string) => {
     const from = moveNotation.substring(0, 2);
     const to = moveNotation.substring(2, 4);
+    const promotion = moveNotation.length > 4 ? moveNotation.substring(4, 5) : undefined;
     
     try {
       gameInstance.move({
         from: from,
         to: to,
-        promotion: "q"
+        promotion: promotion as any || "q"
       });
       
       setGame(new Chess(gameInstance.fen()));
@@ -78,7 +135,7 @@ export function ChessSection() {
   };
 
   const onDrop = (sourceSquare: string, targetSquare: string) => {
-    if (!playerTurn) return false;
+    if (!playerTurn || !currentPuzzle) return false;
     
     try {
       const move = game.move({
@@ -92,7 +149,9 @@ export function ChessSection() {
       const expectedMove = currentPuzzle.moves[currentMoveIndex];
       const playerMoveNotation = sourceSquare + targetSquare;
       
-      if (playerMoveNotation === expectedMove) {
+      // Check if the move matches (including potential promotion)
+      if (playerMoveNotation === expectedMove || 
+          (expectedMove.startsWith(playerMoveNotation) && move.promotion)) {
         setStatus("Correct move!");
         const newMoveHistory = [...moveHistory, `${sourceSquare}-${targetSquare}`];
         setMoveHistory(newMoveHistory);
@@ -107,9 +166,19 @@ export function ChessSection() {
           }, 500);
         } else {
           setStatus("Puzzle solved! Well done!");
+          toast({
+            title: "Puzzle Solved!",
+            description: "Congratulations! You've solved the puzzle.",
+            variant: "default"
+          });
         }
       } else {
         setStatus("Incorrect move. Try again!");
+        toast({
+          title: "Incorrect Move",
+          description: "That's not the best move in this position.",
+          variant: "destructive"
+        });
         game.undo();
         setGame(new Chess(game.fen()));
         return false;
@@ -123,23 +192,61 @@ export function ChessSection() {
   };
 
   const handleShowHint = () => {
+    if (!currentPuzzle) return;
+    
     setShowHint(true);
+    const expectedMove = currentPuzzle.moves[currentMoveIndex];
+    const from = expectedMove.substring(0, 2);
+    const to = expectedMove.substring(2, 4);
+    
+    toast({
+      title: "Hint",
+      description: `Try moving from ${from} to ${to}`,
+      variant: "default"
+    });
+    
     setTimeout(() => setShowHint(false), 2000);
   };
 
   const handleReset = () => {
-    initializePuzzle(chessPuzzles.indexOf(currentPuzzle));
+    if (!currentPuzzle) return;
+    initializePuzzle(puzzleData.indexOf(currentPuzzle));
   };
 
   const handleNextPuzzle = () => {
-    const currentIndex = chessPuzzles.indexOf(currentPuzzle);
-    const nextIndex = (currentIndex + 1) % chessPuzzles.length;
+    if (!currentPuzzle) return;
+    const currentIndex = puzzleData.indexOf(currentPuzzle);
+    const nextIndex = (currentIndex + 1) % puzzleData.length;
     initializePuzzle(nextIndex);
   };
 
+  const handleFetchNewPuzzle = () => {
+    fetchPuzzles();
+  };
+
   useEffect(() => {
-    initializePuzzle();
+    fetchPuzzles();
   }, []);
+
+  useEffect(() => {
+    if (puzzleData.length > 0 && !currentPuzzle) {
+      initializePuzzle(0);
+    }
+  }, [puzzleData]);
+
+  // Custom wooden board theme
+  const customBoardStyles = {
+    boardStyle: {
+      borderRadius: "8px",
+      boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+    },
+    darkSquareStyle: { 
+      backgroundColor: "#b58863", // Darker brown for dark squares
+    },
+    lightSquareStyle: { 
+      backgroundColor: "#f0d9b5", // Lighter beige for light squares
+    },
+  };
 
   return (
     <section id="chess" className="py-20 md:py-32 relative">
@@ -168,29 +275,26 @@ export function ChessSection() {
               transition={{ duration: 0.5 }}
               className="glass-card p-6 rounded-lg"
             >
-              <div 
-                className="w-full max-w-[500px] mx-auto"
-                style={{ aspectRatio: "1/1" }}
-              >
-                <Chessboard 
-                  position={game.fen()} 
-                  onPieceDrop={onDrop}
-                  boardWidth={500}
-                  areArrowsAllowed={true}
-                  customBoardStyle={{
-                    borderRadius: "8px",
-                    boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
-                  }}
-                  customDarkSquareStyle={{ 
-                    backgroundColor: "hsl(var(--secondary))",
-                    transition: "background-color 0.2s ease"
-                  }}
-                  customLightSquareStyle={{ 
-                    backgroundColor: "hsl(var(--background))",
-                    transition: "background-color 0.2s ease"
-                  }}
-                />
-              </div>
+              {isLoading ? (
+                <div className="w-full max-w-[500px] mx-auto flex items-center justify-center" style={{ aspectRatio: "1/1" }}>
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                </div>
+              ) : (
+                <div 
+                  className="w-full max-w-[500px] mx-auto"
+                  style={{ aspectRatio: "1/1" }}
+                >
+                  <Chessboard 
+                    position={game.fen()} 
+                    onPieceDrop={onDrop}
+                    boardWidth={500}
+                    areArrowsAllowed={true}
+                    customBoardStyle={customBoardStyles.boardStyle}
+                    customDarkSquareStyle={customBoardStyles.darkSquareStyle}
+                    customLightSquareStyle={customBoardStyles.lightSquareStyle}
+                  />
+                </div>
+              )}
             </motion.div>
           </div>
 
@@ -203,9 +307,9 @@ export function ChessSection() {
           >
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold">{currentPuzzle.name}</h3>
+                <h3 className="text-xl font-semibold">{currentPuzzle?.id ? `Puzzle #${currentPuzzle.id.substring(0, 6)}` : "Loading puzzle..."}</h3>
                 <span className="px-3 py-1 bg-accent/10 rounded-full text-sm font-medium">
-                  {currentPuzzle.difficulty}
+                  {currentPuzzle?.rating ? `Rating: ${currentPuzzle.rating}` : "Level: Medium"}
                 </span>
               </div>
               
@@ -222,6 +326,19 @@ export function ChessSection() {
                 </div>
               </div>
               
+              {currentPuzzle?.themes && (
+                <div className="mb-4">
+                  <h4 className="font-medium mb-2">Themes:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {currentPuzzle.themes.slice(0, 3).map((theme, index) => (
+                      <span key={index} className="px-2 py-1 bg-secondary/10 text-secondary rounded-md text-xs">
+                        {theme}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
               <div className="mb-6">
                 <h4 className="font-medium mb-2">Current Task:</h4>
                 <p className="text-foreground/70">
@@ -231,7 +348,7 @@ export function ChessSection() {
                 </p>
               </div>
               
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 mb-4">
                 <Button onClick={handleReset} variant="outline" className="flex items-center gap-1">
                   <RotateCw className="w-4 h-4" />
                   Reset
@@ -243,6 +360,10 @@ export function ChessSection() {
                 <Button onClick={handleNextPuzzle} className="flex items-center gap-1">
                   <Award className="w-4 h-4" />
                   Next Puzzle
+                </Button>
+                <Button onClick={handleFetchNewPuzzle} variant="secondary" className="flex items-center gap-1">
+                  <RefreshCw className="w-4 h-4" />
+                  New Puzzle
                 </Button>
               </div>
             </div>
