@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -13,36 +12,17 @@ interface ProjectItem {
   technologies: string[];
   repoLink?: string;
   liveLink?: string;
+  imageUrl: string;
 }
 
 const projectsData: ProjectItem[] = [
   {
-    title: "My Book List App",
-    description: "A SwiftUI-based app following MVVM architecture that allows users to add, delete, search, and edit books with title, author, and genre. Includes toolbar integration and record navigation.",
-    gradient: "bg-gradient-to-br from-blue-500/20 to-purple-500/20",
-    technologies: ["Swift", "SwiftUI", "MVVM", "Core Data", "iOS"],
+    title: "Space Debris Collector",
+    description: "Developed an innovative asset management tool designed to automatically collect and organize simulation debris data from visual effects pipelines, improving post-production efficiency.",
+    gradient: "bg-gradient-to-br from-rose-500/20 to-pink-500/20",
+    technologies: ["Python", "Asset Management", "Visual Effects", "Automation"],
     repoLink: "#",
-  },
-  {
-    title: "Personal Finance Tracker",
-    description: "An expense tracking app built using Swift and SwiftData. Tracks income, expenses by category, and savings across 7 days. Includes financial health insights based on daily averages, with optional chart visualization.",
-    gradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
-    technologies: ["Swift", "SwiftData", "Charts", "MVVM", "iOS"],
-    repoLink: "#",
-  },
-  {
-    title: "Favorite Parks Directory",
-    description: "A table view and map-based app to list favorite parks using List, NavigationLink, and Map. Supports grouping, dynamic addition/deletion, and displays map annotations of nearby places using keyword search.",
-    gradient: "bg-gradient-to-br from-teal-500/20 to-cyan-500/20",
-    technologies: ["Swift", "MapKit", "Core Location", "SwiftUI", "iOS"],
-    repoLink: "#",
-  },
-  {
-    title: "City Info Explorer",
-    description: "A SwiftUI app that fetches and displays city data using JSON and the GeoNames API. Selecting a city shows it on a map. Demonstrates web service integration and async JSON handling.",
-    gradient: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
-    technologies: ["Swift", "SwiftUI", "REST API", "MapKit", "Async/Await"],
-    repoLink: "#",
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
   },
   {
     title: "Maya Playblast Tool",
@@ -50,13 +30,39 @@ const projectsData: ProjectItem[] = [
     gradient: "bg-gradient-to-br from-amber-500/20 to-orange-500/20",
     technologies: ["Python", "Autodesk Maya", "UI Design", "Animation Workflow"],
     repoLink: "#",
+    imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
   },
   {
-    title: "Space Debris Collector",
-    description: "Developed an innovative asset management tool designed to automatically collect and organize simulation debris data from visual effects pipelines, improving post-production efficiency.",
-    gradient: "bg-gradient-to-br from-rose-500/20 to-pink-500/20",
-    technologies: ["Python", "Asset Management", "Visual Effects", "Automation"],
+    title: "My Book List App",
+    description: "A SwiftUI-based app following MVVM architecture that allows users to add, delete, search, and edit books with title, author, and genre. Includes toolbar integration and record navigation.",
+    gradient: "bg-gradient-to-br from-blue-500/20 to-purple-500/20",
+    technologies: ["Swift", "SwiftUI", "MVVM", "Core Data", "iOS"],
     repoLink: "#",
+    imageUrl: "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "Personal Finance Tracker",
+    description: "An expense tracking app built using Swift and SwiftData. Tracks income, expenses by category, and savings across 7 days. Includes financial health insights based on daily averages, with optional chart visualization.",
+    gradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
+    technologies: ["Swift", "SwiftData", "Charts", "MVVM", "iOS"],
+    repoLink: "#",
+    imageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "Favorite Parks Directory",
+    description: "A table view and map-based app to list favorite parks using List, NavigationLink, and Map. Supports grouping, dynamic addition/deletion, and displays map annotations of nearby places using keyword search.",
+    gradient: "bg-gradient-to-br from-teal-500/20 to-cyan-500/20",
+    technologies: ["Swift", "MapKit", "Core Location", "SwiftUI", "iOS"],
+    repoLink: "#",
+    imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "City Info Explorer",
+    description: "A SwiftUI app that fetches and displays city data using JSON and the GeoNames API. Selecting a city shows it on a map. Demonstrates web service integration and async JSON handling.",
+    gradient: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
+    technologies: ["Swift", "SwiftUI", "REST API", "MapKit", "Async/Await"],
+    repoLink: "#",
+    imageUrl: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=800&auto=format&fit=crop",
   }
 ];
 
@@ -113,8 +119,13 @@ export function ProjectsSection() {
               className="h-full"
             >
               <Card className="h-full hover:shadow-lg transition-shadow duration-300">
-                <CardHeader className={`${project.gradient} rounded-t-lg p-6`}>
-                  <div className="text-4xl font-bold text-foreground/20 transition-colors">
+                <CardHeader className={`${project.gradient} rounded-t-lg p-6 relative overflow-hidden h-48`}>
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50"
+                  />
+                  <div className="text-4xl font-bold text-foreground/20 transition-colors relative z-10">
                     {project.title.charAt(0)}
                   </div>
                 </CardHeader>
