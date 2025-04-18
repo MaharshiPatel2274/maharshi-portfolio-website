@@ -3,60 +3,59 @@ import { motion } from "framer-motion";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { ExternalLink, Github } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 interface ProjectItem {
   title: string;
   description: string;
-  image: string;
+  gradient: string;
   technologies: string[];
-  liveLink?: string;
   repoLink?: string;
+  liveLink?: string;
 }
 
 const projectsData: ProjectItem[] = [
   {
-    title: "VR Test Automation Framework",
-    description: "Developed a comprehensive framework for automating tests in VR applications, integrated with CI/CD pipelines to ensure continuous quality assessment during development.",
-    image: "bg-gradient-to-br from-blue-500/20 to-purple-500/20",
-    technologies: ["Python", "JavaScript", "CI/CD", "GitLab", "VR Testing"],
+    title: "My Book List App",
+    description: "A SwiftUI-based app following MVVM architecture that allows users to add, delete, search, and edit books with title, author, and genre. Includes toolbar integration and record navigation.",
+    gradient: "bg-gradient-to-br from-blue-500/20 to-purple-500/20",
+    technologies: ["Swift", "SwiftUI", "MVVM", "Core Data", "iOS"],
     repoLink: "#",
   },
   {
-    title: "Dreamscape SDK Implementation",
-    description: "Enhanced VR experiences by implementing custom features using the Dreamscape SDK and Unity, creating immersive educational environments.",
-    image: "bg-gradient-to-br from-purple-500/20 to-pink-500/20",
-    technologies: ["Unity", "C#", "Dreamscape SDK", "VR Development"],
-    liveLink: "#",
+    title: "Personal Finance Tracker",
+    description: "An expense tracking app built using Swift and SwiftData. Tracks income, expenses by category, and savings across 7 days. Includes financial health insights based on daily averages, with optional chart visualization.",
+    gradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
+    technologies: ["Swift", "SwiftData", "Charts", "MVVM", "iOS"],
     repoLink: "#",
   },
   {
-    title: "HR Workflow Automation",
-    description: "Streamlined HR processes with a custom solution featuring REST APIs and SQL-powered dashboards for improved efficiency and data-driven decision making.",
-    image: "bg-gradient-to-br from-green-500/20 to-blue-500/20",
-    technologies: ["SQL", "REST API", "Data Visualization", "Workflow Automation"],
+    title: "Favorite Parks Directory",
+    description: "A table view and map-based app to list favorite parks using List, NavigationLink, and Map. Supports grouping, dynamic addition/deletion, and displays map annotations of nearby places using keyword search.",
+    gradient: "bg-gradient-to-br from-teal-500/20 to-cyan-500/20",
+    technologies: ["Swift", "MapKit", "Core Location", "SwiftUI", "iOS"],
     repoLink: "#",
   },
   {
-    title: "Chess Training Algorithm",
-    description: "Built an algorithm using machine learning and chess analysis to offer personalized improvement recommendations based on player performance and style.",
-    image: "bg-gradient-to-br from-amber-500/20 to-red-500/20",
-    technologies: ["Python", "Machine Learning", "Chess Analysis", "Algorithms"],
-    liveLink: "#",
+    title: "City Info Explorer",
+    description: "A SwiftUI app that fetches and displays city data using JSON and the GeoNames API. Selecting a city shows it on a map. Demonstrates web service integration and async JSON handling.",
+    gradient: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
+    technologies: ["Swift", "SwiftUI", "REST API", "MapKit", "Async/Await"],
     repoLink: "#",
   },
   {
     title: "Maya Playblast Tool",
     description: "Created a tool integrated within Autodesk Maya that streamlines playblast generation with customizable camera settings and rapid previews for animation workflow.",
-    image: "bg-gradient-to-br from-teal-500/20 to-blue-500/20",
+    gradient: "bg-gradient-to-br from-amber-500/20 to-orange-500/20",
     technologies: ["Python", "Autodesk Maya", "UI Design", "Animation Workflow"],
     repoLink: "#",
   },
   {
     title: "Space Debris Collector",
     description: "Developed an innovative asset management tool designed to automatically collect and organize simulation debris data from visual effects pipelines, improving post-production efficiency.",
-    image: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
+    gradient: "bg-gradient-to-br from-rose-500/20 to-pink-500/20",
     technologies: ["Python", "Asset Management", "Visual Effects", "Automation"],
-    liveLink: "#",
     repoLink: "#",
   }
 ];
@@ -96,8 +95,7 @@ export function ProjectsSection() {
           <span className="text-primary font-medium">My Technical Portfolio</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">Featured Projects</h2>
           <p className="text-foreground/70 max-w-2xl mx-auto">
-            A collection of projects showcasing my skills in VR development, automation, 
-            data analysis, and software engineering.
+            A showcase of my recent iOS development work, along with selected tools and automation projects.
           </p>
         </motion.div>
 
@@ -112,50 +110,59 @@ export function ProjectsSection() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="tech-card group h-full flex flex-col"
+              className="h-full"
             >
-              {/* Project Image/Banner */}
-              <div 
-                className={`rounded-t-lg h-48 ${project.image} flex items-center justify-center overflow-hidden`}
-              >
-                <div className="text-3xl font-bold text-foreground/20 group-hover:text-foreground/30 transition-colors">
-                  {project.title.charAt(0)}
-                </div>
-              </div>
-              
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">{project.title}</h3>
-                <p className="text-foreground/70 mb-5 flex-grow">{project.description}</p>
+              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+                <CardHeader className={`${project.gradient} rounded-t-lg p-6`}>
+                  <div className="text-4xl font-bold text-foreground/20 transition-colors">
+                    {project.title.charAt(0)}
+                  </div>
+                </CardHeader>
                 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.technologies.map((tech, idx) => (
-                    <Badge key={idx} variant="outline" className="skill-badge">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
+                <CardContent className="p-6">
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <h3 className="text-xl font-semibold mb-3 hover:text-primary transition-colors cursor-pointer">
+                        {project.title}
+                      </h3>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80">
+                      <div className="space-y-2">
+                        <p className="text-sm">{project.description}</p>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
+                  
+                  <p className="text-foreground/70 mb-5">{project.description}</p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {project.technologies.map((tech, idx) => (
+                      <Badge key={idx} variant="outline" className="skill-badge">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
                 
-                {/* Links */}
-                <div className="flex gap-3 mt-auto">
+                <CardFooter className="p-6 pt-0">
                   {project.repoLink && (
                     <Button size="sm" variant="outline" asChild>
                       <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
                         <Github className="w-4 h-4" />
-                        <span>Code</span>
+                        <span>View Source</span>
                       </a>
                     </Button>
                   )}
                   {project.liveLink && (
-                    <Button size="sm" asChild>
+                    <Button size="sm" className="ml-3" asChild>
                       <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
                         <ExternalLink className="w-4 h-4" />
                         <span>Live Demo</span>
                       </a>
                     </Button>
                   )}
-                </div>
-              </div>
+                </CardFooter>
+              </Card>
             </motion.div>
           ))}
         </motion.div>
