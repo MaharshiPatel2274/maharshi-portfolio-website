@@ -1,13 +1,24 @@
 import { motion } from "framer-motion";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Satellite, Trophy, Rocket, Cpu } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { 
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger 
+} from "./ui/hover-card";
 
 interface ProjectItem {
   title: string;
   description: string;
+  extendedDescription?: {
+    overview?: string;
+    achievement?: string;
+    techStack?: string;
+    features?: string[];
+    impact?: string;
+  };
   gradient: string;
   technologies: string[];
   repoLink?: string;
@@ -16,6 +27,26 @@ interface ProjectItem {
 }
 
 const projectsData: ProjectItem[] = [
+  {
+    title: "COSMiQ: AI-Powered Orbital Debris Collector",
+    description: "Developed an autonomous satellite system that predicts and clears high-risk orbital debris to reduce collision risks and optimize satellite launch paths.",
+    extendedDescription: {
+      overview: "Built during the DevLabs Hackathon — and won 🏆",
+      achievement: "COSMiQ autonomously predicts and clears high-risk orbital debris ahead of satellite launches to reduce collision risk, fuel overhead, and rerouting complexity.",
+      techStack: "Python, Streamlit, Plotly, AstroPy, Poliastro, SGP4, Lambert Transfers, GMAT, REST APIs, SolidWorks",
+      features: [
+        "AI-based debris prioritization using CelesTrak & DISCOSWeb",
+        "Real-time 3D orbit visualization with collision detection",
+        "Autonomous transfer simulation via Lambert's algorithm",
+        "Browser-based control dashboard for debris interception & planning"
+      ],
+      impact: "Cut manual planning time by 93%, collision avoidance costs by 90%"
+    },
+    gradient: "bg-gradient-to-br from-blue-900/40 to-purple-900/40",
+    technologies: ["Python", "AI/ML", "Orbital Mechanics", "REST APIs"],
+    repoLink: "#",
+    imageUrl: "/lovable-uploads/98eca19f-14ee-47c5-b444-00a00a9f6dd6.png",
+  },
   {
     title: "Space Debris Collector",
     description: "Developed an innovative asset management tool designed to automatically collect and organize simulation debris data from visual effects pipelines, improving post-production efficiency.",
@@ -118,30 +149,84 @@ export function ProjectsSection() {
               variants={itemVariants}
               className="h-full"
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+              <Card className="group h-full hover:shadow-lg transition-all duration-300 dark:hover:border-blue-500/50">
                 <CardHeader className={`${project.gradient} rounded-t-lg p-6 relative overflow-hidden h-48`}>
                   <img
                     src={project.imageUrl}
                     alt={project.title}
                     className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  {index === 0 && (
+                    <motion.div 
+                      className="absolute -top-20 -right-20 w-40 h-40 opacity-20 group-hover:opacity-40 transition-opacity"
+                      animate={{
+                        rotate: 360
+                      }}
+                      transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "linear"
+                      }}
+                    >
+                      <div className="w-full h-full rounded-full border-4 border-blue-500/50"></div>
+                    </motion.div>
+                  )}
                   <div className="text-4xl font-bold text-foreground/20 transition-colors relative z-10">
-                    {project.title.charAt(0)}
+                    {index === 0 ? <Satellite className="w-8 h-8 text-blue-400" /> : project.title.charAt(0)}
                   </div>
                 </CardHeader>
                 
                 <CardContent className="p-6">
                   <HoverCard>
                     <HoverCardTrigger asChild>
-                      <h3 className="text-xl font-semibold mb-3 hover:text-primary transition-colors cursor-pointer">
+                      <h3 className="text-xl font-semibold mb-3 hover:text-primary transition-colors cursor-pointer group-hover:text-blue-400">
                         {project.title}
                       </h3>
                     </HoverCardTrigger>
-                    <HoverCardContent className="w-80">
-                      <div className="space-y-2">
-                        <p className="text-sm">{project.description}</p>
-                      </div>
-                    </HoverCardContent>
+                    {project.extendedDescription && (
+                      <HoverCardContent className="w-96 p-6">
+                        <div className="space-y-4">
+                          {project.extendedDescription.overview && (
+                            <div className="flex items-center gap-2 text-blue-500">
+                              <Trophy className="w-4 h-4" />
+                              <p className="text-sm font-medium">{project.extendedDescription.overview}</p>
+                            </div>
+                          )}
+                          
+                          {project.extendedDescription.achievement && (
+                            <p className="text-sm">{project.extendedDescription.achievement}</p>
+                          )}
+                          
+                          {project.extendedDescription.techStack && (
+                            <div className="flex items-start gap-2">
+                              <Cpu className="w-4 h-4 mt-1 text-purple-500" />
+                              <p className="text-sm"><span className="font-medium">Tech Stack:</span> {project.extendedDescription.techStack}</p>
+                            </div>
+                          )}
+                          
+                          {project.extendedDescription.features && (
+                            <div className="space-y-2">
+                              <p className="text-sm font-medium">Core Features:</p>
+                              <ul className="text-sm space-y-1">
+                                {project.extendedDescription.features.map((feature, idx) => (
+                                  <li key={idx} className="flex items-center gap-2">
+                                    <Rocket className="w-3 h-3 text-green-500" />
+                                    {feature}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          {project.extendedDescription.impact && (
+                            <p className="text-sm font-medium text-green-500">
+                              ✨ {project.extendedDescription.impact}
+                            </p>
+                          )}
+                        </div>
+                      </HoverCardContent>
+                    )}
                   </HoverCard>
                   
                   <p className="text-foreground/70 mb-5">{project.description}</p>
