@@ -48,14 +48,6 @@ const projectsData: ProjectItem[] = [
     imageUrl: "/lovable-uploads/98eca19f-14ee-47c5-b444-00a00a9f6dd6.png",
   },
   {
-    title: "Space Debris Collector",
-    description: "Developed an innovative asset management tool designed to automatically collect and organize simulation debris data from visual effects pipelines, improving post-production efficiency.",
-    gradient: "bg-gradient-to-br from-rose-500/20 to-pink-500/20",
-    technologies: ["Python", "Asset Management", "Visual Effects", "Automation"],
-    repoLink: "#",
-    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
-  },
-  {
     title: "Maya Playblast Tool",
     description: "Created a tool integrated within Autodesk Maya that streamlines playblast generation with customizable camera settings and rapid previews for animation workflow.",
     gradient: "bg-gradient-to-br from-amber-500/20 to-orange-500/20",
