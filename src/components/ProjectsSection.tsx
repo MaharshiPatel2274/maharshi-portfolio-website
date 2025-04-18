@@ -50,6 +50,20 @@ const projectsData: ProjectItem[] = [
   {
     title: "Maya Playblast Tool",
     description: "Created a tool integrated within Autodesk Maya that streamlines playblast generation with customizable camera settings and rapid previews for animation workflow.",
+    extendedDescription: {
+      overview: "Built as part of the ASU DSL Maya Extensions toolkit",
+      achievement: "Automates the creation of quad‑view playblasts with per‑camera aim constraints and offsets, streamlining multi‑camera output in a single click.",
+      techStack: "Python · Autodesk Maya cmds · FFmpeg",
+      features: [
+        "Modular Architecture with clean separation of core logic",
+        "Flexible GUI with custom resolution/quality settings",
+        "Aim Constraints & Offsets with auto target asset",
+        "Auto‑Select Animated Geometry",
+        "Quad‑View Playback & Playblast",
+        "FFmpeg Integration for MP4 conversion"
+      ],
+      impact: "Cut manual setup by 75%, merge time by 90%"
+    },
     gradient: "bg-gradient-to-br from-amber-500/20 to-orange-500/20",
     technologies: ["Python", "Autodesk Maya", "UI Design", "Animation Workflow"],
     repoLink: "#",
@@ -57,7 +71,18 @@ const projectsData: ProjectItem[] = [
   },
   {
     title: "My Book List App",
-    description: "A SwiftUI-based app following MVVM architecture that allows users to add, delete, search, and edit books with title, author, and genre. Includes toolbar integration and record navigation.",
+    description: "A SwiftUI-based app following MVVM architecture that allows users to add, delete, search, and edit books with title, author, and genre.",
+    extendedDescription: {
+      overview: "Built as part of CSE 335 coursework on MVVM-based iOS development",
+      achievement: "A SwiftUI app to manage and edit a personal book collection using toolbar items and alert-based UI for CRUD operations.",
+      techStack: "Swift · SwiftUI · MVVM · Xcode",
+      features: [
+        "Add, Edit, Delete, Search with modal prompts",
+        "MVVM Architecture with observable bindings",
+        "NavigationStack Integration with toolbar items"
+      ],
+      impact: "Designed for clean data manipulation and UI modularity"
+    },
     gradient: "bg-gradient-to-br from-blue-500/20 to-purple-500/20",
     technologies: ["Swift", "SwiftUI", "MVVM", "Core Data", "iOS"],
     repoLink: "#",
@@ -65,7 +90,19 @@ const projectsData: ProjectItem[] = [
   },
   {
     title: "Personal Finance Tracker",
-    description: "An expense tracking app built using Swift and SwiftData. Tracks income, expenses by category, and savings across 7 days. Includes financial health insights based on daily averages, with optional chart visualization.",
+    description: "An expense tracking app built using Swift and SwiftData. Tracks income, expenses by category, and savings across 7 days.",
+    extendedDescription: {
+      overview: "Built for a Swift-based financial planning app with daily expense insights",
+      achievement: "Tracks income, expenses, and savings using Firebase or SwiftData and visualizes user budget trends.",
+      techStack: "Swift · SwiftUI · SwiftData · Firebase · MVVM · Swift Charts",
+      features: [
+        "Financial Logging with categorized expenses",
+        "Insight Engine using 7-day averages",
+        "Data Persistence with Firebase integration",
+        "Chart Visualization for trends"
+      ],
+      impact: "Offers personalized budget analysis and real-time insight generation"
+    },
     gradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
     technologies: ["Swift", "SwiftData", "Charts", "MVVM", "iOS"],
     repoLink: "#",
@@ -73,7 +110,18 @@ const projectsData: ProjectItem[] = [
   },
   {
     title: "Favorite Parks Directory",
-    description: "A table view and map-based app to list favorite parks using List, NavigationLink, and Map. Supports grouping, dynamic addition/deletion, and displays map annotations of nearby places using keyword search.",
+    description: "A table view and map-based app to list favorite parks using List, NavigationLink, and Map.",
+    extendedDescription: {
+      overview: "Built using SwiftUI with real-time map features and search",
+      achievement: "A table-driven app that catalogs parks and integrates location-based place search and MapKit views.",
+      techStack: "Swift · SwiftUI · MapKit · MVVM · NavigationStack",
+      features: [
+        "Park Directory with grouped listings",
+        "Dynamic Add/Delete with image support",
+        "Interactive Map View with nearby search"
+      ],
+      impact: "Combines SwiftUI navigation with responsive location-aware components"
+    },
     gradient: "bg-gradient-to-br from-teal-500/20 to-cyan-500/20",
     technologies: ["Swift", "MapKit", "Core Location", "SwiftUI", "iOS"],
     repoLink: "#",
@@ -81,7 +129,18 @@ const projectsData: ProjectItem[] = [
   },
   {
     title: "City Info Explorer",
-    description: "A SwiftUI app that fetches and displays city data using JSON and the GeoNames API. Selecting a city shows it on a map. Demonstrates web service integration and async JSON handling.",
+    description: "A SwiftUI app that fetches and displays city data using JSON and the GeoNames API.",
+    extendedDescription: {
+      overview: "Built as a SwiftUI client for the GeoNames web service",
+      achievement: "Fetches and displays international city data and maps them in real time.",
+      techStack: "Swift · SwiftUI · JSON · REST API · MapKit",
+      features: [
+        "City Data via GeoNames API with bounding box",
+        "Detail View with Map integration",
+        "Efficient JSON Parsing with async calls"
+      ],
+      impact: "Demonstrates real-world API consumption and geographic visualization in SwiftUI"
+    },
     gradient: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
     technologies: ["Swift", "SwiftUI", "REST API", "MapKit", "Async/Await"],
     repoLink: "#",
