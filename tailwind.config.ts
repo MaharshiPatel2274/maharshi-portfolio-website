@@ -120,6 +120,11 @@ export default {
 					'50%': { transform: 'translate(0, 20px)' },
 					'75%': { transform: 'translate(-10px, 10px)' },
 					'100%': { transform: 'translate(0, 0)' }
+				},
+				'shake': {
+					'0%, 100%': { transform: 'translateX(0)' },
+					'10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-5px)' },
+					'20%, 40%, 60%, 80%': { transform: 'translateX(5px)' }
 				}
 			},
 			animation: {
@@ -132,7 +137,8 @@ export default {
 				'float': 'float 5s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
 				'cursor-blink': 'cursor-blink 1s ease-in-out infinite',
-				'particle-move': 'particle-move 8s ease-in-out infinite'
+				'particle-move': 'particle-move 8s ease-in-out infinite',
+				'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both'
 			}
 		}
 	},

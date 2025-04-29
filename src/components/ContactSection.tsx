@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
-import emailjs from "@emailjs/browser";
+//import emailjs from "@emailjs/browser";
 import { useToast } from "@/hooks/use-toast";
 import { useRef, useState } from "react";
 import { 

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Chessboard } from "react-chessboard";
 import { Chess, Square } from "chess.js";
 import { Button } from "./ui/button";
-import { RotateCw, Award, AlertTriangle, RefreshCw } from "lucide-react";
+import { RotateCw, Award, AlertTriangle, RefreshCw, ChevronUp } from "lucide-react";
 import { toast } from "./ui/use-toast";
 import { Card, CardContent } from "./ui/card";
 import { chessPuzzles, isWhiteTurn } from "@/utils/chessUtils";
@@ -18,10 +18,11 @@ export function ChessSection() {
   const [playerTurn, setPlayerTurn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [puzzleData, setPuzzleData] = useState<any[]>([]);
-  // ← new: square‑highlight map
   const [highlightSquares, setHighlightSquares] = useState<{
     [square: string]: React.CSSProperties;
   }>({});
+  const [incorrectMove, setIncorrectMove] = useState(false);
+  const [puzzleSolved, setPuzzleSolved] = useState(false);
 
   const makeComputerMove = (gameInstance: Chess, moveNotation: string) => {
     const from = moveNotation.substring(0, 2);
@@ -44,7 +45,7 @@ export function ChessSection() {
   };
 
   const onDrop = (sourceSquare: string, targetSquare: string) => {
-    if (!playerTurn || !currentPuzzle) return false;
+    if (!playerTurn || !currentPuzzle || puzzleSolved) return false;
 
     try {
       const move = game.move({
@@ -61,7 +62,9 @@ export function ChessSection() {
         playerNotation === expected ||
         (expected.startsWith(playerNotation) && move.promotion)
       ) {
+        // Correct move!
         setStatus("Correct move!");
+        setIncorrectMove(false);
         setMoveHistory((h) => [...h, `${sourceSquare}-${targetSquare}`]);
 
         if (currentMoveIndex + 1 < currentPuzzle.moves.length) {
@@ -72,20 +75,36 @@ export function ChessSection() {
             setPlayerTurn(true);
           }, 500);
         } else {
+          // Puzzle solved!
           setStatus("Puzzle solved! Well done!");
+          setPuzzleSolved(true);
           toast({
             title: "Puzzle Solved!",
             description: "Congratulations! You've solved the puzzle.",
             variant: "default",
           });
+          
+          // Show celebration animation
+          setTimeout(() => {
+            setPuzzleSolved(false);
+          }, 3000);
         }
       } else {
+        // Incorrect move!
         setStatus("Incorrect move. Try again!");
+        setIncorrectMove(true);
+        
         toast({
           title: "Incorrect Move",
           description: "That's not the best move in this position.",
           variant: "destructive",
         });
+        
+        // Reset the incorrect move state after animation completes
+        setTimeout(() => {
+          setIncorrectMove(false);
+        }, 500);
+        
         game.undo();
         setGame(new Chess(game.fen()));
         return false;
@@ -104,21 +123,33 @@ export function ChessSection() {
     const from = expected.substring(0, 2),
       to = expected.substring(2, 4);
 
+    // Highlight hint squares
+    setHighlightSquares({
+      [from]: { backgroundColor: "rgba(255,215,0,0.5)" },
+      [to]: { backgroundColor: "rgba(0,255,0,0.4)" }
+    });
+
     toast({
       title: "Hint",
       description: `Try moving from ${from} to ${to}`,
       variant: "default",
     });
-    setTimeout(() => setShowHint(false), 2000);
+    
+    setTimeout(() => {
+      setShowHint(false);
+      setHighlightSquares({});
+    }, 2000);
   };
 
   const handleReset = () => {
     if (!currentPuzzle) return;
+    setPuzzleSolved(false);
     initializePuzzle(puzzleData.indexOf(currentPuzzle));
   };
 
   const handleNextPuzzle = () => {
     if (!currentPuzzle) return;
+    setPuzzleSolved(false);
     const idx = puzzleData.indexOf(currentPuzzle);
     initializePuzzle((idx + 1) % puzzleData.length);
   };
@@ -136,6 +167,12 @@ export function ChessSection() {
 
   const initializePuzzle = (puzzleIndex: number = 0) => {
     if (!puzzleData.length) return;
+    
+    // Reset state for new puzzle
+    setHighlightSquares({});
+    setPuzzleSolved(false);
+    setIncorrectMove(false);
+    
     const puzzle = puzzleData[puzzleIndex];
     const newGame = new Chess(puzzle.fen);
 
@@ -145,7 +182,6 @@ export function ChessSection() {
     setStatus("");
     setShowHint(false);
     setMoveHistory([]);
-    setHighlightSquares({});
     setPlayerTurn(isWhiteTurn(puzzle.fen));
 
     if (!isWhiteTurn(puzzle.fen) && puzzle.moves.length) {
@@ -157,18 +193,21 @@ export function ChessSection() {
     }
   };
 
-  // Custom wooden board theme
+  // Enhanced wooden board theme with darker browns
   const customBoardStyles = {
     boardStyle: {
-      borderRadius: "8px",
-      boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+      borderRadius: "12px",
+      boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+      overflow: "hidden",
+      transition: "all 0.3s ease",
     },
-    darkSquareStyle: { backgroundColor: "#b58863" },
-    lightSquareStyle: { backgroundColor: "#f0d9b5" },
+    darkSquareStyle: { backgroundColor: "#9c7b5e" }, // Darker brown
+    lightSquareStyle: { backgroundColor: "#eaded2" }, // Lighter beige
   };
 
-  // ← new: when a square is clicked, highlight its legal moves
   const handleSquareClick = (square: Square) => {
+    if (puzzleSolved) return;
+    
     const moves = game.moves({ square, verbose: true });
     if (!moves.length) {
       setHighlightSquares({});
@@ -222,8 +261,30 @@ export function ChessSection() {
                 </div>
               ) : (
                 <>
-                  <div
-                    className="w-full max-w-[500px] mx-auto"
+                  {/* Current Turn Display - ABOVE the board */}
+                  <div className="mb-4 text-center">
+                    <Card className="bg-card/80 backdrop-blur-sm border border-border/50">
+                      <CardContent className="pt-4 pb-3 px-4">
+                        <p className="text-lg font-medium flex items-center justify-center gap-2">
+                          {playerTurn ? 
+                            <span className="inline-block w-3 h-3 bg-white rounded-full animate-pulse"></span> : 
+                            <span className="inline-block w-3 h-3 bg-black rounded-full animate-pulse"></span>
+                          }
+                          Current Turn: {playerTurn ? "White" : "Black"}
+                          {playerTurn ? " (Your Turn)" : " (Computer's Turn)"}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  {/* Chessboard with animation wrapper */}
+                  <motion.div 
+                    className={`w-full max-w-[500px] mx-auto relative ${incorrectMove ? 'animate-shake' : ''}`}
+                    animate={incorrectMove ? 
+                      { x: [0, -10, 10, -5, 5, 0] } : 
+                      {}
+                    }
+                    transition={{ duration: 0.4 }}
                     style={{ aspectRatio: "1/1" }}
                   >
                     <Chessboard
@@ -232,25 +293,39 @@ export function ChessSection() {
                       onSquareClick={handleSquareClick}
                       boardWidth={500}
                       customBoardStyle={customBoardStyles.boardStyle}
-                      customDarkSquareStyle={
-                        customBoardStyles.darkSquareStyle
-                      }
-                      customLightSquareStyle={
-                        customBoardStyles.lightSquareStyle
-                      }
+                      customDarkSquareStyle={customBoardStyles.darkSquareStyle}
+                      customLightSquareStyle={customBoardStyles.lightSquareStyle}
                       customSquareStyles={highlightSquares}
+                      animationDuration={300}
                     />
-                  </div>
-                  <div className="mt-4 text-center">
-                    <Card>
-                      <CardContent className="pt-6">
-                        <p className="text-lg font-medium">
-                          Current Turn: {playerTurn ? "White" : "Black"}
-                          {playerTurn ? " (Your Turn)" : " (Computer's Turn)"}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
+                    
+                    {/* Celebration overlay when puzzle is solved */}
+                    <AnimatePresence>
+                      {puzzleSolved && (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-md overflow-hidden"
+                        >
+                          <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.2, type: "spring" }}
+                            className="bg-green-500/90 text-white font-bold py-4 px-8 rounded-lg shadow-lg"
+                          >
+                            <div className="text-3xl mb-2">✓ Puzzle Solved!</div>
+                            <Button 
+                              onClick={handleNextPuzzle}
+                              className="mt-3 bg-white text-green-700 hover:bg-white/90"
+                            >
+                              Next Puzzle <ChevronUp className="ml-1 w-4 h-4" />
+                            </Button>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 </>
               )}
             </motion.div>
@@ -261,7 +336,7 @@ export function ChessSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="glass-card p-6 rounded-lg"
+            className="glass-card p-6 rounded-lg bg-background/50 backdrop-blur-sm"
           >
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
@@ -270,7 +345,7 @@ export function ChessSection() {
                     ? `Puzzle #${currentPuzzle.id}`
                     : "Loading puzzle..."}
                 </h3>
-                <span className="px-3 py-1 bg-accent/10 rounded-full text-sm font-medium">
+                <span className="px-3 py-1 bg-accent/30 rounded-full text-sm font-medium">
                   {currentPuzzle?.rating
                     ? `Rating: ${currentPuzzle.rating}`
                     : "Rating: —"}
@@ -282,13 +357,20 @@ export function ChessSection() {
                 <div
                   className={`p-3 rounded-md ${
                     status.includes("Correct") || status.includes("solved")
-                      ? "bg-green-500/10 text-green-500"
+                      ? "bg-green-500/20 text-green-500 border border-green-500/30"
                       : status.includes("Incorrect")
-                      ? "bg-red-500/10 text-red-500"
-                      : "bg-blue-500/10 text-blue-500"
+                      ? "bg-red-500/20 text-red-500 border border-red-500/30"
+                      : "bg-blue-500/20 text-blue-500 border border-blue-500/30"
                   }`}
                 >
-                  {status || "Make your move!"}
+                  <motion.p
+                    key={status} // This forces re-animation when status changes
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {status || "Make your move!"}
+                  </motion.p>
                 </div>
               </div>
 
@@ -321,7 +403,7 @@ export function ChessSection() {
                 <Button
                   onClick={handleReset}
                   variant="outline"
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 hover:bg-background/80"
                 >
                   <RotateCw className="w-4 h-4" />
                   Reset
@@ -329,12 +411,15 @@ export function ChessSection() {
                 <Button
                   onClick={handleShowHint}
                   variant="outline"
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 hover:bg-background/80"
                 >
                   <AlertTriangle className="w-4 h-4" />
                   Hint
                 </Button>
-                <Button className="flex items-center gap-1" onClick={handleNextPuzzle}>
+                <Button 
+                  className="flex items-center gap-1 bg-primary/90 hover:bg-primary" 
+                  onClick={handleNextPuzzle}
+                >
                   <Award className="w-4 h-4" />
                   Next Puzzle
                 </Button>
@@ -351,13 +436,21 @@ export function ChessSection() {
 
             <div>
               <h4 className="font-medium mb-2">Move History:</h4>
-              <div className="bg-background/50 p-3 rounded-md h-36 overflow-y-auto">
+              <div className="bg-background/80 backdrop-blur-sm border border-border/50 p-3 rounded-md h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
                 {moveHistory.length ? (
                   <ol className="list-decimal pl-5 space-y-1">
                     {moveHistory.map((m, i) => (
-                      <li key={i} className="text-sm">
-                        {i % 2 === 0 ? "Computer" : "You"}: {m}
-                      </li>
+                      <motion.li 
+                        key={i}
+                        initial={{ opacity: 0, x: -5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.05, duration: 0.3 }}
+                        className="text-sm"
+                      >
+                        <span className={i % 2 === 0 ? "text-foreground/80" : "text-primary/90 font-medium"}>
+                          {i % 2 === 0 ? "Computer" : "You"}: {m}
+                        </span>
+                      </motion.li>
                     ))}
                   </ol>
                 ) : (

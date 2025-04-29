@@ -48,6 +48,27 @@ const projectsData: ProjectItem[] = [
     imageUrl: "/lovable-uploads/98eca19f-14ee-47c5-b444-00a00a9f6dd6.png",
   },
   {
+    title: "NeuroPilot: AI-Driven Smart Browser",
+    description: "A chromium-based AI web browser integrating modern UI design, real-time health data simulation, and AI-driven productivity flows.",
+    extendedDescription: {
+      overview: "Built with a focus on intelligent, adaptive, and user-centered design",
+      achievement: "A chromium-based AI web browser integrating modern UI design, real-time health data simulation, and AI-driven productivity flows.",
+      techStack: "Electron.js, Node.js, TailwindCSS, JavaScript Modules, IPC Bridges",
+      features: [
+        "Smart task breakdown and reminders via AI",
+        "HealthKit-style stress and health data simulation",
+        "Full-stack IPC-secured browser backend",
+        "Summarization tool, custom WebView communication",
+        "Glassmorphism UI and real-time behavior simulation"
+      ],
+      impact: "Built with a focus on intelligent, adaptive, and user-centered design for productivity and well-being"
+    },
+    gradient: "bg-gradient-to-br from-green-800/40 to-green-500/40",
+    technologies: ["Electron.js", "Node.js", "TailwindCSS", "JavaScript"],
+    repoLink: "#",
+    imageUrl: "/lovable-uploads/e8e068ea-c405-480c-af35-25a748d7141a.png",
+  },
+  {
     title: "Maya Playblast Tool",
     description: "Created a tool integrated within Autodesk Maya that streamlines playblast generation with customizable camera settings and rapid previews for animation workflow.",
     extendedDescription: {
