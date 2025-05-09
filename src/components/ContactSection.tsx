@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, Check, X, Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
@@ -24,10 +24,13 @@ type FormValues = {
   message: string;
 };
 
+type EmailValidationStatus = "idle" | "validating" | "valid" | "invalid" | null;
+
 export function ContactSection() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [emailValidation, setEmailValidation] = useState<EmailValidationStatus>("idle");
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<FormValues>({
@@ -37,6 +40,49 @@ export function ContactSection() {
       message: "",
     },
   });
+
+  const validateEmail = async (email: string) => {
+    if (!email) {
+      setEmailValidation("idle");
+      return;
+    }
+    
+    // Simple regex pre-check to avoid unnecessary API calls
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailValidation("invalid");
+      return;
+    }
+    
+    setEmailValidation("validating");
+    
+    try {
+      const apiUrl = `https://api.zerobounce.net/v2/validate?api_key=2b07c18792b6445d89832e2cac7bfd19&email=${encodeURIComponent(email)}`;
+      const response = await fetch(apiUrl);
+      
+      if (!response.ok) {
+        // API call failed, fallback to regex validation
+        setEmailValidation(emailRegex.test(email) ? "valid" : "invalid");
+        return;
+      }
+      
+      const data = await response.json();
+      
+      // Check ZeroBounce status
+      if (data.status === "valid") {
+        setEmailValidation("valid");
+      } else if (["invalid", "abuse", "do_not_mail"].includes(data.status)) {
+        setEmailValidation("invalid");
+      } else {
+        // For unknown statuses, fallback to regex
+        setEmailValidation(emailRegex.test(email) ? "valid" : "invalid");
+      }
+    } catch (error) {
+      // API error - fallback to regex validation
+      console.error("Email validation API error:", error);
+      setEmailValidation(emailRegex.test(email) ? "valid" : "invalid");
+    }
+  };
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
@@ -63,6 +109,7 @@ export function ContactSection() {
       
       // Reset form
       form.reset();
+      setEmailValidation("idle");
     } catch (error) {
       console.error("Error sending email:", error);
       setShowErrorDialog(true);
@@ -190,15 +237,40 @@ export function ContactSection() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-sm font-medium">Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="email"
-                              className="w-full p-2 rounded-md border border-border bg-background/50"
-                              placeholder="your.email@example.com"
-                              required
-                            />
-                          </FormControl>
+                          <div className="relative">
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="email"
+                                className="w-full p-2 pr-10 rounded-md border border-border bg-background/50"
+                                placeholder="your.email@example.com"
+                                required
+                                onBlur={(e) => {
+                                  field.onBlur();
+                                  validateEmail(e.target.value);
+                                }}
+                                onChange={(e) => {
+                                  field.onChange(e);
+                                  if (emailValidation !== "idle" && emailValidation !== "validating") {
+                                    setEmailValidation("idle");
+                                  }
+                                }}
+                              />
+                            </FormControl>
+                            {emailValidation !== "idle" && (
+                              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                {emailValidation === "validating" && (
+                                  <Loader2 className="h-4 w-4 text-muted-foreground animate-spin" />
+                                )}
+                                {emailValidation === "valid" && (
+                                  <Check className="h-4 w-4 text-green-500" />
+                                )}
+                                {emailValidation === "invalid" && (
+                                  <X className="h-4 w-4 text-red-500" />
+                                )}
+                              </div>
+                            )}
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}
