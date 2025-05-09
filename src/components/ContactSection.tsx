@@ -42,17 +42,17 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // Use EmailJS to send the email
+      // Use EmailJS to send the email with the real credentials
       await emailjs.send(
         "service_b6afzjq",  // Service ID
-        "template_contact",  // Template ID - using a generic name, replace with your actual template ID
+        "template_wtfmq4n",  // Template ID
         {
           from_name: data.name,
           reply_to: data.email,
           message: data.message,
           to_email: "maharshipatel2274@gmail.com",
         },
-        "YOUR_PUBLIC_KEY"  // Replace with your actual public key
+        "Jr5jAGpXu65yYHZfE"  // Public Key
       );
       
       // Show success toast
