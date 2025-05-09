@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
-//import emailjs from "@emailjs/browser";
-import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
+import { useToast } from "./ui/use-toast";
 import { useRef, useState } from "react";
 import { 
   Form,
@@ -42,17 +42,18 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // For development purposes, simulate a successful email send
-      // In production, this would use your actual EmailJS configuration
-      console.log("Email would be sent with:", {
-        from_name: data.name,
-        reply_to: data.email,
-        message: data.message,
-        to_email: "maharshipatel2274@gmail.com",
-      });
-      
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Use EmailJS to send the email
+      await emailjs.send(
+        "service_b6afzjq",  // Service ID
+        "template_contact",  // Template ID - using a generic name, replace with your actual template ID
+        {
+          from_name: data.name,
+          reply_to: data.email,
+          message: data.message,
+          to_email: "maharshipatel2274@gmail.com",
+        },
+        "YOUR_PUBLIC_KEY"  // Replace with your actual public key
+      );
       
       // Show success toast
       toast({
