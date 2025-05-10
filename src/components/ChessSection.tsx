@@ -321,7 +321,6 @@ export function ChessSection() {
                       customSquareStyles={highlightSquares}
                       animationDuration={300}
                       areArrowsAllowed={false}
-                      className="touch-none"
                     />
                     
                     {/* Celebration overlay when puzzle is solved */}
