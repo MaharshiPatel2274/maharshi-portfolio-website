@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Chessboard } from "react-chessboard";
 import { Chess, Square } from "chess.js";
@@ -23,6 +23,8 @@ export function ChessSection() {
   }>({});
   const [incorrectMove, setIncorrectMove] = useState(false);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
+  const [boardWidth, setBoardWidth] = useState(500);
+  const chessboardContainerRef = useRef<HTMLDivElement>(null);
 
   const makeComputerMove = (gameInstance: Chess, moveNotation: string) => {
     const from = moveNotation.substring(0, 2);
@@ -165,6 +167,26 @@ export function ChessSection() {
     }
   }, [puzzleData]);
 
+  // Update board size based on container width
+  useEffect(() => {
+    const updateBoardWidth = () => {
+      if (chessboardContainerRef.current) {
+        const containerWidth = chessboardContainerRef.current.offsetWidth;
+        // Make sure boardWidth isn't too large, especially on mobile
+        setBoardWidth(Math.min(containerWidth, 500));
+      }
+    };
+
+    // Initial board size update
+    updateBoardWidth();
+
+    // Add resize listener
+    window.addEventListener('resize', updateBoardWidth);
+
+    // Clean up
+    return () => window.removeEventListener('resize', updateBoardWidth);
+  }, []);
+
   const initializePuzzle = (puzzleIndex: number = 0) => {
     if (!puzzleData.length) return;
     
@@ -277,9 +299,10 @@ export function ChessSection() {
                     </Card>
                   </div>
                   
-                  {/* Chessboard with animation wrapper */}
+                  {/* Chessboard with animation wrapper and ref for responsive sizing */}
                   <motion.div 
-                    className={`w-full max-w-[500px] mx-auto relative ${incorrectMove ? 'animate-shake' : ''}`}
+                    ref={chessboardContainerRef}
+                    className={`w-full max-w-[500px] mx-auto relative ${incorrectMove ? 'animate-shake' : ''} touch-none`}
                     animate={incorrectMove ? 
                       { x: [0, -10, 10, -5, 5, 0] } : 
                       {}
@@ -291,12 +314,14 @@ export function ChessSection() {
                       position={game.fen()}
                       onPieceDrop={onDrop}
                       onSquareClick={handleSquareClick}
-                      boardWidth={500}
+                      boardWidth={boardWidth}
                       customBoardStyle={customBoardStyles.boardStyle}
                       customDarkSquareStyle={customBoardStyles.darkSquareStyle}
                       customLightSquareStyle={customBoardStyles.lightSquareStyle}
                       customSquareStyles={highlightSquares}
                       animationDuration={300}
+                      areArrowsAllowed={false}
+                      className="touch-none"
                     />
                     
                     {/* Celebration overlay when puzzle is solved */}
@@ -331,6 +356,7 @@ export function ChessSection() {
             </motion.div>
           </div>
 
+          {/* Chess controls panel (right side) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}

@@ -90,7 +90,8 @@ export function ExperienceSection() {
           </p>
         </motion.div>
 
-        <div className="max-w-6xl mx-auto">
+        {/* Desktop Carousel (Hidden on mobile) */}
+        <div className="hidden md:block max-w-6xl mx-auto">
           <Carousel
             opts={{
               align: "start",
@@ -106,9 +107,9 @@ export function ExperienceSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="h-full" // Add this to ensure full height
+                    className="h-full"
                   >
-                    <div className="glass-card group h-full p-6 mx-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"> {/* Added flex flex-col to maintain consistent layout */}
+                    <div className="glass-card group h-full p-6 mx-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-xl font-semibold tech-gradient-text">{experience.title}</h3>
                         <div className="flex items-center text-foreground/70 text-sm">
@@ -124,7 +125,7 @@ export function ExperienceSection() {
                         </p>
                       </div>
 
-                      <div className="space-y-2 mb-4 flex-grow overflow-hidden transition-all duration-300"> {/* Added flex-grow */}
+                      <div className="space-y-2 mb-4 flex-grow overflow-hidden transition-all duration-300">
                         <ul className="space-y-2">
                           {experience.description.map((item, idx) => (
                             <li key={idx} className="text-foreground/80 flex items-start">
@@ -150,6 +151,63 @@ export function ExperienceSection() {
             <CarouselPrevious className="hidden md:flex" />
             <CarouselNext className="hidden md:flex" />
           </Carousel>
+        </div>
+
+        {/* Mobile Vertical Timeline (Visible only on mobile) */}
+        <div className="md:hidden">
+          <div className="relative">
+            {/* Vertical Timeline Line */}
+            <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border/60"></div>
+
+            {experienceData.map((experience, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative mb-8 pl-12"
+              >
+                {/* Timeline Dot */}
+                <div className="absolute left-[14px] top-2 w-3 h-3 rounded-full bg-primary/80 -translate-x-1/2 z-10"></div>
+                
+                <div className="glass-card group p-5 hover:shadow-lg transition-all duration-300 flex flex-col">
+                  <div className="flex flex-col mb-3">
+                    <h3 className="text-xl font-semibold tech-gradient-text mb-2">{experience.title}</h3>
+                    <div className="flex items-center text-foreground/70 text-sm mb-2">
+                      <Calendar className="w-4 h-4 mr-1" />
+                      <span>{experience.period}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Building className="w-4 h-4 text-foreground/70" />
+                      <p className="text-foreground/70">
+                        {experience.company} • {experience.location}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 mb-4">
+                    <ul className="space-y-2">
+                      {experience.description.map((item, idx) => (
+                        <li key={idx} className="text-foreground/80 flex items-start">
+                          <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary/80 mt-2 mr-2 flex-shrink-0"></span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {experience.technologies.map((tech, idx) => (
+                      <Badge key={idx} variant="secondary" className="skill-badge">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

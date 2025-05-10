@@ -16,9 +16,9 @@ export function Footer() {
           </div>
           
           <div className="flex items-center space-x-6">
-            <p className="text-foreground/70 text-sm">
-              Built with React & TailwindCSS
-            </p>
+            <div className="text-foreground/70 text-sm">
+              <span className="tech-gradient-text font-medium">Creating the future, one line at a time</span>
+            </div>
             <span className="text-foreground/30">•</span>
             <p className="text-foreground/70 text-sm flex items-center">
               <span className={`inline-block w-2 h-2 rounded-full mr-2 ${
