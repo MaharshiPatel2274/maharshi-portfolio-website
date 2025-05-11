@@ -41,7 +41,7 @@ export const projectsData: ProjectItem[] = [
     gradient: "bg-gradient-to-br from-green-800/40 to-green-500/40",
     technologies: ["Electron.js", "Node.js", "TailwindCSS", "JavaScript"],
     repoLink: "#",
-    imageUrl: "/lovable-uploads/e8e068ea-c405-480c-af35-25a748d7141a.png",
+    imageUrl: "C:/Users/mahar/Downloads/medium.png",
   },
   {
     title: "Maya Playblast Tool",
