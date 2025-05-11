@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 
 const navLinks = [
-  { label: "About", href: "#about" },
+  { label: "About", href: "#about-me" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },

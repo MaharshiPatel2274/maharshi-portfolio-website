@@ -1,6 +1,6 @@
 
 import { useTheme } from "./ThemeProvider";
-import { Code, Heart } from "lucide-react";
+import { Code, Heart, Sparkles } from "lucide-react";
 
 export function Footer() {
   const { theme } = useTheme();
@@ -19,8 +19,8 @@ export function Footer() {
           <div className="flex items-center space-x-6">
             <div className="text-foreground/70 text-sm flex items-center gap-2">
               <Heart className="w-3 h-3 text-red-500" />
-              <span className="tech-gradient-text font-medium">Creating digital experiences with passion</span>
-              <Code className="w-3 h-3 text-blue-500" />
+              <span className="tech-gradient-text font-medium">Crafting digital magic</span>
+              <Sparkles className="w-3 h-3 text-amber-400" />
             </div>
             <span className="text-foreground/30 hidden md:inline">•</span>
             <p className="text-foreground/70 text-sm flex items-center">

@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Chessboard } from "react-chessboard";
@@ -310,18 +311,20 @@ export function ChessSection() {
                     transition={{ duration: 0.4 }}
                     style={{ aspectRatio: "1/1" }}
                   >
-                    <Chessboard
-                      position={game.fen()}
-                      onPieceDrop={onDrop}
-                      onSquareClick={handleSquareClick}
-                      boardWidth={boardWidth}
-                      customBoardStyle={customBoardStyles.boardStyle}
-                      customDarkSquareStyle={customBoardStyles.darkSquareStyle}
-                      customLightSquareStyle={customBoardStyles.lightSquareStyle}
-                      customSquareStyles={highlightSquares}
-                      animationDuration={300}
-                      areArrowsAllowed={false}
-                    />
+                    <div className="overflow-hidden">
+                      <Chessboard
+                        position={game.fen()}
+                        onPieceDrop={onDrop}
+                        onSquareClick={handleSquareClick}
+                        boardWidth={boardWidth}
+                        customBoardStyle={customBoardStyles.boardStyle}
+                        customDarkSquareStyle={customBoardStyles.darkSquareStyle}
+                        customLightSquareStyle={customBoardStyles.lightSquareStyle}
+                        customSquareStyles={highlightSquares}
+                        animationDuration={300}
+                        areArrowsAllowed={false}
+                      />
+                    </div>
                     
                     {/* Celebration overlay when puzzle is solved */}
                     <AnimatePresence>
