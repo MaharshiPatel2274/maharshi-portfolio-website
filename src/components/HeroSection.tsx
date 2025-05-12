@@ -69,7 +69,7 @@ export function HeroSection() {
                 transition={{ delay: 0.8 }}
               >
                 <a 
-                  href="mailto:contact@example.com" 
+                  href="maharshipatel2274@gmail.com" 
                   className="text-foreground/70 hover:text-primary transition-colors"
                   aria-label="Email"
                 >
@@ -83,7 +83,7 @@ export function HeroSection() {
                   <Phone className="w-5 h-5" />
                 </a>
                 <a 
-                  href="https://github.com" 
+                  href="https://github.com/MaharshiPatel2274" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-foreground/70 hover:text-primary transition-colors"
@@ -92,7 +92,7 @@ export function HeroSection() {
                   <Github className="w-5 h-5" />
                 </a>
                 <a 
-                  href="https://linkedin.com" 
+                  href="https://www.linkedin.com/in/maharshi-patel1/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-foreground/70 hover:text-primary transition-colors"
