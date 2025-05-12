@@ -79,7 +79,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-blue-500/20 to-purple-500/20",
     technologies: ["Swift", "SwiftUI", "MVVM", "Core Data", "iOS"],
-    repoLink: "#",
+    repoLink: "https://github.com/MaharshiPatel2274/My-Book-List-App",
     imageUrl: "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format&fit=crop",
   },
   {
