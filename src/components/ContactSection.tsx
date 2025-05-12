@@ -1,6 +1,5 @@
-
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Phone, Check, X, Loader2 } from "lucide-react";
+import { Github, Linkedin, Mail, Check, X, Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
@@ -159,19 +158,6 @@ export function ContactSection() {
                     <div>
                       <p className="font-medium">Email</p>
                       <p className="text-foreground/70">mpate125@asu.edu</p>
-                    </div>
-                  </a>
-                  
-                  <a 
-                    href="tel:+17148727865" 
-                    className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
-                  >
-                    <div className="bg-primary/10 p-2 rounded-full">
-                      <Phone className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Phone</p>
-                      <p className="text-foreground/70">+1 (714) 872-7865</p>
                     </div>
                   </a>
                   
