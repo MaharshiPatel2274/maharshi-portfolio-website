@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Chessboard } from "react-chessboard";

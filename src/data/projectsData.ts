@@ -18,7 +18,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-blue-900/40 to-purple-900/40",
     technologies: ["Python", "AI/ML", "Orbital Mechanics", "REST APIs"],
-    repoLink: "#",
+    repoLink: "https://github.com/MaharshiPatel2274/Debris-Collector",
     imageUrl: "/lovable-uploads/98eca19f-14ee-47c5-b444-00a00a9f6dd6.png",
   },
   {
@@ -39,7 +39,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-green-800/40 to-green-500/40",
     technologies: ["Electron.js", "Node.js", "TailwindCSS", "JavaScript"],
-    repoLink: "#",
+    repoLink: "https://github.com/sm11t/NeuroPilot",
     imageUrl: "/lovable-uploads/ee8a13e3-1543-45c6-83c1-a2d9b3a2fc8d.png",
   },
   {
@@ -61,7 +61,6 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-amber-500/20 to-orange-500/20",
     technologies: ["Python", "Autodesk Maya", "UI Design", "Animation Workflow"],
-    repoLink: "#",
     imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
   },
   {
@@ -100,7 +99,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
     technologies: ["Swift", "SwiftData", "Charts", "MVVM", "iOS"],
-    repoLink: "#",
+    repoLink: "https://github.com/MaharshiPatel2274/Personal-Finance-Tracker",
     imageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
   },
   {
@@ -119,7 +118,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-teal-500/20 to-cyan-500/20",
     technologies: ["Swift", "MapKit", "Core Location", "SwiftUI", "iOS"],
-    repoLink: "#",
+    repoLink: "https://github.com/MaharshiPatel2274/Favorite-Parks-App",
     imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop",
   },
   {
@@ -138,7 +137,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
     technologies: ["Swift", "SwiftUI", "REST API", "MapKit", "Async/Await"],
-    repoLink: "#",
+    repoLink: "https://github.com/MaharshiPatel2274/City-Info-Explorer",
     imageUrl: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=800&auto=format&fit=crop",
   }
 ];
