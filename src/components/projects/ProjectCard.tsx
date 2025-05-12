@@ -20,7 +20,7 @@ export function ProjectCard({ project, index, itemVariants }: ProjectCardProps) 
   const isMobile = useIsMobile();
   
   const cardContent = (
-    <Card className="group h-full hover:shadow-lg transition-all duration-300 dark:hover:border-blue-500/50 cursor-pointer">
+    <Card className="group h-full hover:shadow-lg transition-all duration-300 dark:hover:border-blue-500/50 cursor-pointer flex flex-col">
       <CardHeader className={`${project.gradient} rounded-t-lg p-6 relative overflow-hidden h-48`}>
         <img
           src={project.imageUrl}
@@ -48,7 +48,7 @@ export function ProjectCard({ project, index, itemVariants }: ProjectCardProps) 
         </div>
       </CardHeader>
       
-      <CardContent className="p-6">
+      <CardContent className="p-6 flex-grow">
         <h3 className="text-xl font-semibold mb-3 hover:text-primary transition-colors group-hover:text-blue-400">
           {project.title}
         </h3>
@@ -64,7 +64,7 @@ export function ProjectCard({ project, index, itemVariants }: ProjectCardProps) 
         </div>
       </CardContent>
       
-      <CardFooter className="p-6 pt-0">
+      <CardFooter className="p-6 pt-0 mt-auto">
         {project.repoLink && (
           <Button size="sm" variant="outline" asChild>
             <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">

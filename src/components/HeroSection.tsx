@@ -1,10 +1,24 @@
+
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 import { TypeWriter } from "./TypeWriter";
 import { BlobBackground } from "./BlobBackground";
 
 export function HeroSection() {
+  const typewriterTexts = [
+    "Computer Science Student & Software Engineer",
+    "Full-Stack Developer",
+    "AI Explorer",
+    "VR QA Tester",
+    "Automation Engineer",
+    "Human-Centered Designer",
+    "Swift & Python Enthusiast",
+    "Open Source Contributor",
+    "Problem Solver",
+    "India National Chess Champion 2017"
+  ];
+
   return (
     <>
       <motion.div
@@ -45,7 +59,7 @@ export function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <TypeWriter text="Computer Science Student & Software Engineer" speed={50} />
+                <TypeWriter texts={typewriterTexts} speed={50} delayAfterPhrase={2000} />
               </motion.div>
               
               <motion.div 
@@ -74,13 +88,6 @@ export function HeroSection() {
                   aria-label="Email"
                 >
                   <Mail className="w-5 h-5" />
-                </a>
-                <a 
-                  href="tel:+1234567890" 
-                  className="text-foreground/70 hover:text-primary transition-colors"
-                  aria-label="Phone"
-                >
-                  <Phone className="w-5 h-5" />
                 </a>
                 <a 
                   href="https://github.com/MaharshiPatel2274" 
