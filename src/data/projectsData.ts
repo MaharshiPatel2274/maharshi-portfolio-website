@@ -61,7 +61,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-amber-500/20 to-orange-500/20",
     technologies: ["Python", "Autodesk Maya", "UI Design", "Animation Workflow"],
-    imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "/lovable-uploads/d3ef5b88-459d-4990-98ad-325f253b1fb7.png",
   },
   {
     title: "My Book List App",
