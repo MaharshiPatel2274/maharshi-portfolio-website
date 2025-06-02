@@ -299,7 +299,7 @@ export function ChessSection() {
                     </Card>
                   </div>
                   
-                  {/* Chessboard with proper containment that doesn't break rendering */}
+                  {/* Chessboard with proper piece containment */}
                   <motion.div 
                     ref={chessboardContainerRef}
                     className={`w-full max-w-[500px] mx-auto relative ${incorrectMove ? 'animate-shake' : ''}`}
@@ -310,28 +310,44 @@ export function ChessSection() {
                     transition={{ duration: 0.4 }}
                     style={{ 
                       aspectRatio: "1/1",
-                      // Prevent pieces from escaping while allowing board to render
-                      overflow: "hidden",
-                      position: "relative"
+                      // Critical: This ensures pieces are contained within the board during drag
+                      position: "relative",
+                      isolation: "isolate", // Creates new stacking context
                     }}
                   >
-                    <Chessboard
-                      position={game.fen()}
-                      onPieceDrop={onDrop}
-                      onSquareClick={handleSquareClick}
-                      boardWidth={boardWidth}
-                      customBoardStyle={customBoardStyles.boardStyle}
-                      customDarkSquareStyle={customBoardStyles.darkSquareStyle}
-                      customLightSquareStyle={customBoardStyles.lightSquareStyle}
-                      customSquareStyles={highlightSquares}
-                      animationDuration={300}
-                      areArrowsAllowed={false}
-                      boardOrientation="white"
-                      isDraggablePiece={({ piece, sourceSquare }) => {
-                        // Only allow dragging if it's the player's turn and puzzle isn't solved
-                        return playerTurn && !puzzleSolved;
+                    <div 
+                      style={{
+                        // This wrapper ensures pieces stay within bounds
+                        position: "relative",
+                        width: "100%", 
+                        height: "100%",
+                        overflow: "hidden", // Clips any pieces that try to go outside
+                        borderRadius: "12px", // Match the board's border radius
+                        // Create a containing block for absolutely positioned pieces
+                        contain: "layout style paint",
                       }}
-                    />
+                    >
+                      <Chessboard
+                        position={game.fen()}
+                        onPieceDrop={onDrop}
+                        onSquareClick={handleSquareClick}
+                        boardWidth={boardWidth}
+                        customBoardStyle={customBoardStyles.boardStyle}
+                        customDarkSquareStyle={customBoardStyles.darkSquareStyle}
+                        customLightSquareStyle={customBoardStyles.lightSquareStyle}
+                        customSquareStyles={highlightSquares}
+                        animationDuration={300}
+                        areArrowsAllowed={false}
+                        boardOrientation="white"
+                        isDraggablePiece={({ piece, sourceSquare }) => {
+                          // Only allow dragging if it's the player's turn and puzzle isn't solved
+                          return playerTurn && !puzzleSolved;
+                        }}
+                        customDropSquareStyle={{
+                          boxShadow: "inset 0 0 1px 6px rgba(255,255,255,0.75)"
+                        }}
+                      />
+                    </div>
                     
                     {/* Celebration overlay when puzzle is solved */}
                     <AnimatePresence>
