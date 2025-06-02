@@ -215,13 +215,16 @@ export function ChessSection() {
     }
   };
 
-  // Enhanced wooden board theme with darker browns
+  // Enhanced wooden board theme with darker browns and containment styles
   const customBoardStyles = {
     boardStyle: {
       borderRadius: "12px",
       boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
       overflow: "hidden",
       transition: "all 0.3s ease",
+      position: "relative" as const,
+      // Ensure pieces stay within board bounds
+      contain: "layout style paint" as const,
     },
     darkSquareStyle: { backgroundColor: "#9c7b5e" }, // Darker brown
     lightSquareStyle: { backgroundColor: "#eaded2" }, // Lighter beige
@@ -299,7 +302,7 @@ export function ChessSection() {
                     </Card>
                   </div>
                   
-                  {/* Chessboard with animation wrapper and ref for responsive sizing */}
+                  {/* Chessboard with enhanced containment and ref for responsive sizing */}
                   <motion.div 
                     ref={chessboardContainerRef}
                     className={`w-full max-w-[500px] mx-auto relative ${incorrectMove ? 'animate-shake' : ''} touch-none`}
@@ -310,18 +313,53 @@ export function ChessSection() {
                     transition={{ duration: 0.4 }}
                     style={{ aspectRatio: "1/1" }}
                   >
-                    <div className="overflow-hidden">
+                    <div 
+                      className="overflow-hidden relative"
+                      style={{
+                        // Ensure strict containment for pieces
+                        contain: "layout style paint size",
+                        isolation: "isolate",
+                        // Create a stacking context to prevent pieces from escaping
+                        transform: "translateZ(0)",
+                        // Clip any overflow content
+                        clipPath: "inset(0)",
+                      }}
+                    >
                       <Chessboard
                         position={game.fen()}
                         onPieceDrop={onDrop}
                         onSquareClick={handleSquareClick}
                         boardWidth={boardWidth}
-                        customBoardStyle={customBoardStyles.boardStyle}
+                        customBoardStyle={{
+                          ...customBoardStyles.boardStyle,
+                          // Additional containment properties
+                          isolation: "isolate",
+                          transform: "translateZ(0)",
+                        }}
                         customDarkSquareStyle={customBoardStyles.darkSquareStyle}
                         customLightSquareStyle={customBoardStyles.lightSquareStyle}
                         customSquareStyles={highlightSquares}
                         animationDuration={300}
                         areArrowsAllowed={false}
+                        // Additional props to ensure piece containment
+                        boardOrientation="white"
+                        isDraggablePiece={({ piece, sourceSquare }) => {
+                          // Only allow dragging if it's the player's turn and puzzle isn't solved
+                          return playerTurn && !puzzleSolved;
+                        }}
+                        getPositionObject={(position) => position}
+                        onPieceDragBegin={() => {
+                          // Ensure containment when drag begins
+                          if (chessboardContainerRef.current) {
+                            chessboardContainerRef.current.style.overflow = "hidden";
+                          }
+                        }}
+                        onPieceDragEnd={() => {
+                          // Maintain containment when drag ends
+                          if (chessboardContainerRef.current) {
+                            chessboardContainerRef.current.style.overflow = "hidden";
+                          }
+                        }}
                       />
                     </div>
                     
