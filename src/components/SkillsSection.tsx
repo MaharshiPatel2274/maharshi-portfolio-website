@@ -27,7 +27,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "DevOps & Tooling",
     icon: <Wrench className="w-5 h-5" />,
-    skills: ["GitHub Actions", "GitLab", "Jenkins", "Docker", "CI/CD", "Vercel", "Perforce", "Version Control"],
+    skills: ["GitHub Actions", "GitLab", "Jenkins", "Docker", "CI/CD", "Vercel", "Perforce", "Git"],
   },
   {
     name: "Databases & Data",
@@ -37,7 +37,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "Cloud Computing",
     icon: <Server className="w-5 h-5" />,
-    skills: ["AWS", "Azure", "Vercel", "Cloud Services", "API Performance Tuning"],
+    skills: ["AWS", "Azure", "Vercel", "Serverless Architecture", "API Performance Tuning"],
   },
   {
     name: "API & System Integration",
@@ -47,7 +47,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "Other Skills",
     icon: <Globe className="w-5 h-5" />,
-    skills: ["Automation Scripting", "UX/UI Design", "System Design", "VR Testing", "Technical Writing", "Chess", "Team Collaboration"],
+    skills: ["Automation Scripting", "UX/UI Design", "Figma", "System Design", "VR Testing", "Technical Writing", "Agile Collaboration"],
   },
 ];
 
