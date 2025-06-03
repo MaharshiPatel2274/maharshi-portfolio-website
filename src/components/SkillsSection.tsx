@@ -12,32 +12,32 @@ const skillsData: SkillCategory[] = [
   {
     name: "Programming Languages",
     icon: <Code2 className="w-5 h-5" />,
-    skills: ["C", "C++", "Java", "JavaScript", "C#", "HTML", "Python" , "Unity", "MATLAB"],
+    skills: ["TypeScript", "JavaScript", "Python", "Swift", "C", "C++", "Java", "C#", "HTML", "MATLAB"],
   },
   {
     name: "Frameworks & Libraries",
     icon: <Sparkles className="w-5 h-5" />,
-    skills: ["ReactJS", "Selenium", "NodeJS"],
+    skills: ["React.js", "Next.js", "Node.js", "Electron.js", "TailwindCSS", "Framer Motion", "SwiftUI", "Express.js", "Streamlit"],
   },
   {
     name: "DevOps & Tooling",
     icon: <Wrench className="w-5 h-5" />,
-    skills: ["GitLab", "Jenkins", "CI/CD", "Docker", "Version Control","Perforce"],
+    skills: ["GitHub Actions", "GitLab", "Jenkins", "CI/CD", "Docker", "Vercel", "NPM", "Yarn", "Version Control", "Perforce"],
   },
   {
     name: "Databases & Data",
     icon: <Database className="w-5 h-5" />,
-    skills: ["SQL", "Database Design", "Data Visualization", "Data Analysis"],
+    skills: ["Firebase", "SwiftData", "SQL", "NoSQL", "JSON", "REST APIs", "Pandas", "Matplotlib", "Data Visualization"],
   },
   {
     name: "Cloud Computing",
     icon: <Server className="w-5 h-5" />,
-    skills: ["AWS", "Azure", "Cloud Services", "Scalable Systems"],
+    skills: ["AWS", "Azure", "Vercel", "Cloud Services", "API Performance Tuning"],
   },
   {
     name: "Other Skills",
     icon: <Globe className="w-5 h-5" />,
-    skills: ["VR Testing", "Technical Writing", "Problem Solving", "Chess", "Team Collaboration"],
+    skills: ["API Integration", "OpenAI API", "Automation Scripting", "UX/UI Design", "System Design", "VR Testing", "Technical Writing", "Chess"],
   },
 ];
 
