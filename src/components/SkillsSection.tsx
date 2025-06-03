@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Code2, Database, Globe, Server, Sparkles, Wrench } from "lucide-react";
+import { Code2, Database, Globe, Server, Sparkles, Wrench, Cpu, Package } from "lucide-react";
 
 interface SkillCategory {
   name: string;
@@ -17,17 +17,22 @@ const skillsData: SkillCategory[] = [
   {
     name: "Frameworks & Libraries",
     icon: <Sparkles className="w-5 h-5" />,
-    skills: ["React.js", "Next.js", "Node.js", "Electron.js", "TailwindCSS", "Framer Motion", "SwiftUI", "Express.js", "Streamlit"],
+    skills: ["React.js", "Next.js", "Express.js", "SwiftUI", "TailwindCSS", "Framer Motion", "Electron.js", "Streamlit"],
+  },
+  {
+    name: "Runtime Environments & Package Managers",
+    icon: <Package className="w-5 h-5" />,
+    skills: ["Node.js", "NPM", "Yarn"],
   },
   {
     name: "DevOps & Tooling",
     icon: <Wrench className="w-5 h-5" />,
-    skills: ["GitHub Actions", "GitLab", "Jenkins", "CI/CD", "Docker", "Vercel", "NPM", "Yarn", "Version Control", "Perforce"],
+    skills: ["GitHub Actions", "GitLab", "Jenkins", "Docker", "CI/CD", "Vercel", "Perforce", "Version Control"],
   },
   {
     name: "Databases & Data",
     icon: <Database className="w-5 h-5" />,
-    skills: ["Firebase", "SwiftData", "SQL", "NoSQL", "JSON", "REST APIs", "Pandas", "Matplotlib", "Data Visualization"],
+    skills: ["SQL", "NoSQL", "Firebase", "SwiftData", "JSON", "REST APIs", "Pandas", "Matplotlib", "Data Visualization"],
   },
   {
     name: "Cloud Computing",
@@ -35,9 +40,14 @@ const skillsData: SkillCategory[] = [
     skills: ["AWS", "Azure", "Vercel", "Cloud Services", "API Performance Tuning"],
   },
   {
+    name: "API & System Integration",
+    icon: <Cpu className="w-5 h-5" />,
+    skills: ["API Integration", "OpenAI API", "WHOOP API", "EmailJS", "CelesTrak", "ESA DISCOS"],
+  },
+  {
     name: "Other Skills",
     icon: <Globe className="w-5 h-5" />,
-    skills: ["API Integration", "OpenAI API", "Automation Scripting", "UX/UI Design", "System Design", "VR Testing", "Technical Writing", "Chess"],
+    skills: ["Automation Scripting", "UX/UI Design", "System Design", "VR Testing", "Technical Writing", "Chess", "Team Collaboration"],
   },
 ];
 
