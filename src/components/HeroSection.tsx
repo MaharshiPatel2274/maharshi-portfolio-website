@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import { Button } from "./ui/button";
 import { TypeWriter } from "./TypeWriter";
 import { BlobBackground } from "./BlobBackground";
@@ -82,13 +82,6 @@ export function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                <a 
-                  href="maharshipatel2274@gmail.com" 
-                  className="text-foreground/70 hover:text-primary transition-colors"
-                  aria-label="Email"
-                >
-                  <Mail className="w-5 h-5" />
-                </a>
                 <a 
                   href="https://github.com/MaharshiPatel2274" 
                   target="_blank" 
