@@ -12,17 +12,17 @@ const skillsData: SkillCategory[] = [
   {
     name: "Programming Languages",
     icon: <Code2 className="w-5 h-5" />,
-    skills: ["C", "C++", "Java", "JavaScript", "C#", "HTML", "Python"],
+    skills: ["C", "C++", "Java", "JavaScript", "C#", "HTML", "Python" , "Unity", "MATLAB"],
   },
   {
     name: "Frameworks & Libraries",
     icon: <Sparkles className="w-5 h-5" />,
-    skills: ["ReactJS", "Unity", "Selenium", "Django", "TensorFlow"],
+    skills: ["ReactJS", "Selenium", "NodeJS"],
   },
   {
     name: "DevOps & Tooling",
     icon: <Wrench className="w-5 h-5" />,
-    skills: ["GitLab", "Jenkins", "CI/CD", "Docker", "Version Control"],
+    skills: ["GitLab", "Jenkins", "CI/CD", "Docker", "Version Control","Perforce"],
   },
   {
     name: "Databases & Data",
