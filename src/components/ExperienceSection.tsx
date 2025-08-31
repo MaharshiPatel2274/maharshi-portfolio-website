@@ -28,32 +28,43 @@ interface ExperienceItem {
 
 const experienceData: ExperienceItem[] = [
   {
-    title: "VR QA Tester",
-    company: "Arizona State University",
+    title: "Junior Developer",
+    company: "EdPlus at ASU",
     location: "Tempe, AZ",
-    period: "Aug 2023 - Present",
+    period: "May 2025 - Present",
     description: [
-      "Designed automated test scripts using Python and JavaScript to validate VR application functionality",
-      "Integrated tests with CI/CD pipelines for continuous quality assessment",
-      "Performed comprehensive testing of educational VR applications, identifying and documenting defects",
-      "Collaborated with developers to resolve technical issues and improve application stability"
+      "Designed and implemented Unity-based VR automation tools using Python and C#, optimizing asset processing workflows and reducing 3D model preparation time by 95%",
+      "Integrated CI/CD pipelines with GitHub Actions to automate build generation, testing, and deployment",
+      "Refactored Unity build processes to reduce compile times and improve version control workflows"
     ],
-    technologies: ["Python", "JavaScript", "VR Testing", "CI/CD", "GitLab"],
+    technologies: ["Unity", "Python", "C#", "GitHub Actions", "CI/CD", "VR Development"],
     icon: <Laptop className="w-5 h-5" />,
   },
   {
-    title: "Pod Operator",
-    company: "Arizona State University",
+    title: "VR QA Tester",
+    company: "EdPlus at ASU",
     location: "Tempe, AZ",
-    period: "Aug 2023 - Present",
+    period: "Aug 2024 - May 2025",
     description: [
-      "Troubleshooted and resolved VR hardware and software issues in real-time",
-      "Utilized Dreamscape SDK to enhance and maintain VR experiences",
-      "Implemented improvements to Unity-based VR environments",
-      "Assisted users with VR equipment and provided technical guidance"
+      "Developed automated test frameworks in Python and JavaScript for VR apps, improving regression test coverage",
+      "Configured Jenkins and GitLab CI for automated VR build validation",
+      "Collaborated with devs to debug VR interaction logic and optimize performance"
     ],
-    technologies: ["VR Hardware", "Dreamscape SDK", "Unity", "Troubleshooting"],
+    technologies: ["Python", "JavaScript", "Jenkins", "GitLab CI", "VR Testing", "Test Automation"],
     icon: <Cpu className="w-5 h-5" />,
+  },
+  {
+    title: "VR Operation Specialist",
+    company: "EdPlus at ASU",
+    location: "Tempe, AZ",
+    period: "Mar 2023 - Aug 2024",
+    description: [
+      "Diagnosed real-time VR system issues using Unity debug logs, telemetry data, and SDK traces",
+      "Deployed Unity updates and performed headset tracking calibration",
+      "Documented runtime defects and created technical reports for engineering teams"
+    ],
+    technologies: ["Unity", "VR Hardware", "System Diagnostics", "Technical Documentation", "Troubleshooting"],
+    icon: <Building className="w-5 h-5" />,
   },
   {
     title: "Data Analyst Intern",
