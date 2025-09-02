@@ -24,6 +24,7 @@ export function ChessSection() {
   const [incorrectMove, setIncorrectMove] = useState(false);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
   const [boardWidth, setBoardWidth] = useState(500);
+  const [selectedSquare, setSelectedSquare] = useState<string | null>(null);
   const chessboardContainerRef = useRef<HTMLDivElement>(null);
 
   const makeComputerMove = (gameInstance: Chess, moveNotation: string) => {
@@ -194,6 +195,7 @@ export function ChessSection() {
     setHighlightSquares({});
     setPuzzleSolved(false);
     setIncorrectMove(false);
+    setSelectedSquare(null);
     
     const puzzle = puzzleData[puzzleIndex];
     const newGame = new Chess(puzzle.fen);
@@ -228,21 +230,56 @@ export function ChessSection() {
   };
 
   const handleSquareClick = (square: Square) => {
-    if (puzzleSolved) return;
-    
-    const moves = game.moves({ square, verbose: true });
-    if (!moves.length) {
-      setHighlightSquares({});
-      return;
-    }
+    if (!playerTurn || puzzleSolved) return;
 
-    const styles: { [sq: string]: React.CSSProperties } = {
-      [square]: { backgroundColor: "rgba(0,255,0,0.4)" },
-    };
-    moves.forEach((m) => {
-      styles[m.to] = { backgroundColor: "rgba(255,255,0,0.4)" };
-    });
-    setHighlightSquares(styles);
+    // If no piece is selected, try to select this square
+    if (!selectedSquare) {
+      const piece = game.get(square);
+      if (!piece) {
+        setHighlightSquares({});
+        return;
+      }
+
+      // Check if this piece can move (belongs to current player)
+      const isWhiteToMove = game.turn() === 'w';
+      const isPieceWhite = piece.color === 'w';
+      
+      if (isWhiteToMove !== isPieceWhite) {
+        setHighlightSquares({});
+        return;
+      }
+
+      const moves = game.moves({ square, verbose: true });
+      if (!moves.length) {
+        setHighlightSquares({});
+        return;
+      }
+
+      // Select this square and highlight possible moves
+      setSelectedSquare(square);
+      const styles: { [sq: string]: React.CSSProperties } = {
+        [square]: { backgroundColor: "rgba(255,255,0,0.6)" }, // Selected piece
+      };
+      moves.forEach((m) => {
+        styles[m.to] = { backgroundColor: "rgba(0,255,0,0.4)" }; // Possible moves
+      });
+      setHighlightSquares(styles);
+    } else {
+      // A piece is already selected, try to move to this square
+      if (selectedSquare === square) {
+        // Clicking the same square - deselect
+        setSelectedSquare(null);
+        setHighlightSquares({});
+        return;
+      }
+
+      // Try to make the move
+      const moveResult = onDrop(selectedSquare, square);
+      
+      // Clear selection and highlights regardless of move success
+      setSelectedSquare(null);
+      setHighlightSquares({});
+    }
   };
 
   return (
@@ -341,11 +378,18 @@ export function ChessSection() {
                         boardOrientation="white"
                         isDraggablePiece={({ piece, sourceSquare }) => {
                           // Only allow dragging if it's the player's turn and puzzle isn't solved
-                          return playerTurn && !puzzleSolved;
+                          const isWhiteToMove = game.turn() === 'w';
+                          const isPieceWhite = piece.includes('w');
+                          return playerTurn && !puzzleSolved && (isWhiteToMove === isPieceWhite);
                         }}
                         customDropSquareStyle={{
                           boxShadow: "inset 0 0 1px 6px rgba(255,255,255,0.75)"
                         }}
+                        customPremoveDarkSquareStyle={{ backgroundColor: "#9c7b5e" }}
+                        customPremoveLightSquareStyle={{ backgroundColor: "#eaded2" }}
+                        arePremovesAllowed={false}
+                        dropOffBoardAction="snapback"
+                        snapToCursor={true}
                       />
                     </div>
                     
