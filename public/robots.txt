@@ -1,8 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://maharshi-patel.com/sitemap.xml
+
+# Specific bot configurations
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Twitterbot
 Allow: /
@@ -10,5 +19,18 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Disallow crawling of dynamic routes with parameters
+Disallow: /*?
+Disallow: /*/*?
+
+# Allow important static resources
+Allow: /lovable-uploads/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico
+Allow: /*.pdf
