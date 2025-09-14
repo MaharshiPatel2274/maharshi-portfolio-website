@@ -20,9 +20,8 @@ export function AboutSection() {
           >
             <img
               src="/lovable-uploads/85b72fe2-b699-4d47-a712-11755bc4f45a.png"
-              alt="Maharshi Niraj Patel, VR QA Tester and Unity Developer, Computer Science student at Arizona State University specializing in immersive technology"
+              alt="Maharshi at night with holiday lights"
               className="object-cover w-full h-full rounded-xl"
-              loading="lazy"
             />
           </motion.div>
           
