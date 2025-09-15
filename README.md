@@ -1,7 +1,7 @@
 # 🌐 Maharshi Niraj Patel — Portfolio Website
 
-[![Website](https://maharshi-patel.com/)]
-[![GitHub](https://github.com/MaharshiPatel2274)]
+[[Website](https://maharshi-patel.com/)]
+[[GitHub](https://github.com/MaharshiPatel2274)]
 
 ---
 
