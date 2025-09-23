@@ -17,7 +17,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "Frameworks & Libraries",
     icon: <Sparkles className="w-5 h-5" />,
-    skills: ["React.js", "Next.js", "Express.js", "SwiftUI", "TailwindCSS", "Framer Motion", "Electron.js", "Streamlit"],
+    skills: ["React.js", "Next.js", "Express.js", "SwiftUI", "TailwindCSS", "Framer Motion", "Electron.js", "Streamlit", "shadcn/ui", "lucide-react"],
   },
   {
     name: "Runtime Environments & Package Managers",
@@ -42,12 +42,12 @@ const skillsData: SkillCategory[] = [
   {
     name: "API & System Integration",
     icon: <Cpu className="w-5 h-5" />,
-    skills: ["API Integration", "OpenAI API", "WHOOP API", "EmailJS", "CelesTrak", "ESA DISCOS"],
+    skills: ["API Integration", "OpenAI API", "WHOOP API", "EmailJS", "CelesTrak", "ESA DISCOS", "Zoo API", "SimScale API", "Wokwi"],
   },
   {
     name: "Other Skills",
     icon: <Globe className="w-5 h-5" />,
-    skills: ["Automation Scripting", "UX/UI Design", "Figma", "System Design", "VR Testing", "Technical Writing", "Agile Collaboration"],
+    skills: ["Automation Scripting", "UX/UI Design", "Figma", "System Design", "VR Testing", "Technical Writing", "Agile Collaboration", "CAD Modeling", "Hardware Simulation", "PCB Design"],
   },
 ];
 
