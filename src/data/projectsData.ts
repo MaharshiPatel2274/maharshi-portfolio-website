@@ -63,7 +63,7 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-green-800/40 to-green-500/40",
     technologies: ["Electron.js", "Node.js", "TailwindCSS", "JavaScript"],
-    repoLink: "https://github.com/sm11t/NeuroPilot",
+    repoLink: "https://github.com/MaharshiPatel2274/NeuroPilot",
     imageUrl: "/lovable-uploads/ee8a13e3-1543-45c6-83c1-a2d9b3a2fc8d.png",
   },
   {
