@@ -2,6 +2,30 @@ import { ProjectItem } from "@/types/project";
 
 export const projectsData: ProjectItem[] = [
   {
+    title: "PRiSM: Prompt-to-Hardware Generator",
+    description: "An AI-powered hardware design automation platform that converts natural language prompts into complete hardware schematics, CAD models, and simulation-ready configurations.",
+    extendedDescription: {
+      overview: "Built during the DevLabs S2 Hackathon — Prize Winner 🏆",
+      achievement: "PRiSM revolutionizes hardware prototyping by automating the entire design pipeline from natural language input to simulation-ready hardware configurations with parametric CAD generation.",
+      techStack: "Next.js (App Router), TypeScript, OpenAI GPT API, Zoo API, SimScale API, Wokwi, shadcn/ui, Framer Motion, TailwindCSS",
+      features: [
+        "Natural language to schematic conversion via OpenAI GPT API",
+        "Parametric CAD model generation (STEP/GLB) through Zoo API integration",
+        "Real-time thermal, stress, and strain simulations via SimScale API",
+        "Automated BOM generation with part numbers and cost analysis",
+        "Custom hardware keyword extraction for Arduino/ESP32 ecosystems",
+        "Auto-generated technical documentation and user manuals (PDF)",
+        "Wokwi microcontroller circuit simulation pipeline integration",
+        "Runtime variable binding with multi-system recompute triggers"
+      ],
+      impact: "Reduced hardware prototyping time by 85%, automated technical documentation generation"
+    },
+    gradient: "bg-gradient-to-br from-cyan-500/20 to-purple-500/20",
+    technologies: ["Next.js", "TypeScript", "OpenAI API", "CAD Generation", "Hardware Simulation"],
+    repoLink: "https://github.com/MaharshiPatel2274/PRiSM",
+    imageUrl: "/lovable-uploads/prism-logo.jpg",
+  },
+  {
     title: "COSMiQ: AI-Powered Orbital Debris Collector",
     description: "Developed an autonomous satellite system that predicts and clears high-risk orbital debris to reduce collision risks and optimize satellite launch paths.",
     extendedDescription: {
@@ -139,29 +163,5 @@ export const projectsData: ProjectItem[] = [
     technologies: ["Swift", "SwiftUI", "REST API", "MapKit", "Async/Await"],
     repoLink: "https://github.com/MaharshiPatel2274/City-Info-Explorer",
     imageUrl: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    title: "PRiSM: Prompt-to-Hardware Generator",
-    description: "An AI-powered hardware design automation platform that converts natural language prompts into complete hardware schematics, CAD models, and simulation-ready configurations.",
-    extendedDescription: {
-      overview: "Built during the DevLabs S2 Hackathon — Prize Winner 🏆",
-      achievement: "PRiSM revolutionizes hardware prototyping by automating the entire design pipeline from natural language input to simulation-ready hardware configurations with parametric CAD generation.",
-      techStack: "Next.js (App Router), TypeScript, OpenAI GPT API, Zoo API, SimScale API, Wokwi, shadcn/ui, Framer Motion, TailwindCSS",
-      features: [
-        "Natural language to schematic conversion via OpenAI GPT API",
-        "Parametric CAD model generation (STEP/GLB) through Zoo API integration",
-        "Real-time thermal, stress, and strain simulations via SimScale API",
-        "Automated BOM generation with part numbers and cost analysis",
-        "Custom hardware keyword extraction for Arduino/ESP32 ecosystems",
-        "Auto-generated technical documentation and user manuals (PDF)",
-        "Wokwi microcontroller circuit simulation pipeline integration",
-        "Runtime variable binding with multi-system recompute triggers"
-      ],
-      impact: "Reduced hardware prototyping time by 85%, automated technical documentation generation"
-    },
-    gradient: "bg-gradient-to-br from-cyan-500/20 to-purple-500/20",
-    technologies: ["Next.js", "TypeScript", "OpenAI API", "CAD Generation", "Hardware Simulation"],
-    repoLink: "https://github.com/MaharshiPatel2274/PRiSM-Hardware-Generator",
-    imageUrl: "/lovable-uploads/prism-logo.jpg",
   }
 ];
