@@ -41,7 +41,7 @@ const experienceData: ExperienceItem[] = [
     icon: <Laptop className="w-5 h-5" />,
   },
   {
-    title: "VR QA Tester",
+    title: "VR QA Engineer",
     company: "EdPlus at ASU",
     location: "Tempe, AZ",
     period: "Aug 2024 - May 2025",

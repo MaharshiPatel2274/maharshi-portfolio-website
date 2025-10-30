@@ -10,7 +10,7 @@ export function HeroSection() {
     "Computer Science Student & Software Engineer",
     "Full-Stack Developer",
     "AI Explorer",
-    "VR QA Tester",
+    "VR QA Engineer",
     "Automation Engineer",
     "Tech Enthusiast",
     "Swift & Python Enthusiast",
