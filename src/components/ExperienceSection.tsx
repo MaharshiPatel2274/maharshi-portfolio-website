@@ -29,14 +29,26 @@ interface ExperienceItem {
 
 const experienceData: ExperienceItem[] = [
   {
-    title: "Junior Developer",
+    title: "Software Engineering Intern",
+    company: "NextPlayGames / Sportlingo",
+    location: "Remote",
+    period: "Jun 2026 - Present",
+    description: [
+      "Building cross-platform UI components in React Native and TypeScript for football and baseball themed mobile and web titles, wiring them to backend services on AWS EC2/RDS through RESTful API integrations",
+      "Partnering with senior engineers and beta testers across sprint cycles to debug, document, and QA new application features using Git-based version control and iterative testing passes"
+    ],
+    technologies: ["React Native", "TypeScript", "AWS EC2", "AWS RDS", "REST APIs", "Git"],
+    icon: <Gamepad2 className="w-5 h-5" />,
+  },
+  {
+    title: "Software Developer",
     company: "EdPlus at ASU",
     location: "Tempe, AZ",
-    period: "May 2025 - Present",
+    period: "May 2025 - May 2026",
     description: [
-      "Designed and implemented Unity-based VR automation tools using Python and C#, optimizing asset processing workflows and reducing 3D model preparation time by 95%",
-      "Integrated CI/CD pipelines with GitHub Actions to automate build generation, testing, and deployment",
-      "Refactored Unity build processes to reduce compile times and improve version control workflows"
+      "Engineered Unity-based VR automation tools in Python and C# that cut 3D asset preparation time by 95%, eliminating a multi-hour manual bottleneck for a team building real-time educational simulations",
+      "Architected end-to-end CI/CD pipelines with GitHub Actions, automating build generation, test execution, and cross-platform deployment, reducing release cycles from days to hours",
+      "Refactored Unity build processes to slash compile times and enable parallel iteration across 3+ teams, directly accelerating time-to-production for VR content updates"
     ],
     technologies: ["Unity", "Python", "C#", "GitHub Actions", "CI/CD", "VR Development"],
     icon: <Laptop className="w-5 h-5" />,
@@ -47,9 +59,8 @@ const experienceData: ExperienceItem[] = [
     location: "Tempe, AZ",
     period: "Aug 2024 - May 2025",
     description: [
-      "Developed automated test frameworks in Python and JavaScript for VR apps, improving regression test coverage",
-      "Configured Jenkins and GitLab CI for automated VR build validation",
-      "Collaborated with devs to debug VR interaction logic and optimize performance"
+      "Built Python and JavaScript test automation frameworks with Jenkins/GitLab CI pipelines, eliminating 40% of manual QA effort and expanding regression coverage by 55% across VR simulation builds",
+      "Identified and resolved VR interaction bugs with developers, achieving a 20% boost in headset responsiveness and 25% fewer tracking errors across headset, sensor, and tracking modules"
     ],
     technologies: ["Python", "JavaScript", "Jenkins", "GitLab CI", "VR Testing", "Test Automation"],
     icon: <Cpu className="w-5 h-5" />,
