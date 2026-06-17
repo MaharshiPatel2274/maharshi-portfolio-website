@@ -12,12 +12,12 @@ const skillsData: SkillCategory[] = [
   {
     name: "Programming Languages",
     icon: <Code2 className="w-5 h-5" />,
-    skills: ["TypeScript", "JavaScript", "Python", "Swift", "C", "C++", "Java", "C#", "HTML", "MATLAB"],
+    skills: ["TypeScript", "JavaScript", "Python", "Swift", "C", "C++", "Java", "C#", "SQL", "HTML/CSS", "Bash", "MATLAB"],
   },
   {
     name: "Frameworks & Libraries",
     icon: <Sparkles className="w-5 h-5" />,
-    skills: ["React.js", "Next.js", "Express.js", "SwiftUI", "TailwindCSS", "Framer Motion", "Electron.js", "Streamlit", "shadcn/ui", "lucide-react"],
+    skills: ["React.js", "React Native", "Next.js", "Express.js", "Redux", "SwiftUI", "TailwindCSS", "Framer Motion", "Electron.js", "Streamlit", "shadcn/ui", "lucide-react"],
   },
   {
     name: "Runtime Environments & Package Managers",
@@ -27,27 +27,27 @@ const skillsData: SkillCategory[] = [
   {
     name: "DevOps & Tooling",
     icon: <Wrench className="w-5 h-5" />,
-    skills: ["GitHub Actions", "GitLab", "Jenkins", "Docker", "CI/CD", "Vercel", "Perforce", "Git"],
+    skills: ["GitHub Actions", "GitLab", "Jenkins", "Docker", "Kubernetes", "Terraform", "CI/CD", "Vercel", "Sourcetree", "Perforce", "Jira", "Git"],
   },
   {
     name: "Databases & Data",
     icon: <Database className="w-5 h-5" />,
-    skills: ["SQL", "NoSQL", "Firebase", "SwiftData", "JSON", "REST APIs", "Pandas", "Matplotlib", "Data Visualization"],
+    skills: ["SQL", "PostgreSQL", "MongoDB", "NoSQL", "Firebase", "Supabase", "SwiftData", "JSON", "REST APIs", "Pandas", "NumPy", "Matplotlib", "Data Visualization"],
   },
   {
     name: "Cloud Computing",
     icon: <Server className="w-5 h-5" />,
-    skills: ["AWS", "Azure", "Vercel", "Serverless Architecture", "API Performance Tuning"],
+    skills: ["AWS (EC2, S3, IAM, RDS)", "AWS Lambda", "Azure", "Vercel", "Serverless Architecture", "API Performance Tuning"],
   },
   {
-    name: "API & System Integration",
+    name: "AI / ML & Integration",
     icon: <Cpu className="w-5 h-5" />,
-    skills: ["API Integration", "OpenAI API", "WHOOP API", "EmailJS", "CelesTrak", "ESA DISCOS", "Zoo API", "SimScale API", "Wokwi"],
+    skills: ["OpenAI API", "Hugging Face", "LangChain", "Prompt Engineering", "API Integration", "WHOOP API", "EmailJS", "CelesTrak", "ESA DISCOS", "Zoo API", "SimScale API", "Wokwi"],
   },
   {
-    name: "Other Skills",
+    name: "Testing & Other Skills",
     icon: <Globe className="w-5 h-5" />,
-    skills: ["Automation Scripting", "UX/UI Design", "Figma", "System Design", "VR Testing", "Technical Writing", "Agile Collaboration", "CAD Modeling", "Hardware Simulation", "PCB Design"],
+    skills: ["Selenium", "Regression Testing", "Black/White Box Testing", "Automation Scripting", "UX/UI Design", "Figma", "System Design", "VR Testing", "Technical Writing", "Agile & SDLC", "CAD Modeling", "Hardware Simulation", "PCB Design"],
   },
 ];
 
