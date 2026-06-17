@@ -6,7 +6,8 @@ import {
   Building,
   Laptop,
   Cpu,
-  BarChart
+  BarChart,
+  Gamepad2
 } from "lucide-react";
 import {
   Carousel,
