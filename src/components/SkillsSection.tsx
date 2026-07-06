@@ -1,6 +1,6 @@
-
 import { motion } from "framer-motion";
 import { Code2, Database, Globe, Server, Sparkles, Wrench } from "lucide-react";
+import { SectionHeading } from "./SectionHeading";
 
 interface SkillCategory {
   name: string;
@@ -12,7 +12,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "Programming Languages",
     icon: <Code2 className="w-5 h-5" />,
-    skills: ["C", "C++", "Java", "JavaScript", "C#", "HTML", "Python" , "Unity", "MATLAB"],
+    skills: ["C", "C++", "Java", "JavaScript", "C#", "HTML", "Python", "Unity", "MATLAB"],
   },
   {
     name: "Frameworks & Libraries",
@@ -22,7 +22,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "DevOps & Tooling",
     icon: <Wrench className="w-5 h-5" />,
-    skills: ["GitLab", "Jenkins", "CI/CD", "Docker", "Version Control","Perforce"],
+    skills: ["GitLab", "Jenkins", "CI/CD", "Docker", "Version Control", "Perforce"],
   },
   {
     name: "Databases & Data",
@@ -32,7 +32,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "Cloud Computing",
     icon: <Server className="w-5 h-5" />,
-    skills: ["AWS", "Azure", "Cloud Services", "Scalable Systems"],
+    skills: ["AWS", "Azure", "Cloud Services"],
   },
   {
     name: "Other Skills",
@@ -41,72 +41,55 @@ const skillsData: SkillCategory[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export function SkillsSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
-    <section id="skills" className="py-20 md:py-32 relative">
+    <section id="skills" className="py-20 md:py-28">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary font-medium">My Expertise</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">Skills & Technologies</h2>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
-            I've developed a diverse range of technical skills throughout my education and professional experience,
-            organized into key categories.
-          </p>
-        </motion.div>
+        <SectionHeading
+          eyebrow="Skills"
+          title="Technologies I work with"
+          description="A toolkit built across coursework, professional work, and personal projects — spanning languages, frameworks, cloud, and quality engineering."
+        />
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {skillsData.map((category, index) => (
+          {skillsData.map((category) => (
             <motion.div
-              key={index}
+              key={category.name}
               variants={itemVariants}
-              className="glass-card p-6 rounded-lg hover:shadow-lg transition-shadow duration-300"
+              className="group rounded-xl border border-border bg-card p-6 shadow-card transition-all duration-300 hover:border-primary/40 hover:-translate-y-1"
             >
-              <div className="flex items-center mb-4">
-                <div className="bg-primary/10 p-3 rounded-lg mr-4">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/60 text-primary transition-colors group-hover:bg-primary/10">
                   {category.icon}
-                </div>
-                <h3 className="text-lg font-semibold">{category.name}</h3>
+                </span>
+                <h3 className="text-base font-semibold text-foreground">
+                  {category.name}
+                </h3>
               </div>
-              
+
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, idx) => (
-                  <span 
-                    key={idx} 
-                    className="px-3 py-1 bg-background/50 rounded-full text-sm font-medium border border-border/30"
-                  >
+                {category.skills.map((skill) => (
+                  <span key={skill} className="tag">
                     {skill}
                   </span>
                 ))}

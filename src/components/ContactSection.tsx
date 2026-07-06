@@ -16,6 +16,7 @@ import {
 import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
+import { SectionHeading } from "./SectionHeading";
 
 type FormValues = {
   name: string;
@@ -118,30 +119,21 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 relative">
+    <section id="contact" className="py-20 md:py-28 relative">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary font-medium">Get In Touch</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">Contact Me</h2>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
-            Feel free to reach out for collaboration opportunities, questions about my projects,
-            or just to say hello!
-          </p>
-        </motion.div>
+        <SectionHeading
+          eyebrow="Contact"
+          title="Let's build something"
+          description="I'm actively looking for new-grad software engineering roles and open to collaboration. Whether you have a question or just want to say hello, my inbox is open."
+        />
 
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="glass-card p-8 rounded-lg"
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="glass-card p-6 md:p-8"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
@@ -150,14 +142,14 @@ export function ContactSection() {
                 <div className="space-y-4">
                   <a 
                     href="mailto:mpate125@asu.edu" 
-                    className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg border border-transparent transition-colors hover:border-border hover:bg-secondary/50"
                   >
-                    <div className="bg-primary/10 p-2 rounded-full">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/60">
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium">Email</p>
-                      <p className="text-foreground/70">mpate125@asu.edu</p>
+                      <p className="text-sm font-medium text-foreground">Email</p>
+                      <p className="text-sm text-muted-foreground">mpate125@asu.edu</p>
                     </div>
                   </a>
                   
@@ -165,14 +157,14 @@ export function ContactSection() {
                     href="https://www.linkedin.com/in/maharshi-patel1/" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg border border-transparent transition-colors hover:border-border hover:bg-secondary/50"
                   >
-                    <div className="bg-primary/10 p-2 rounded-full">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/60">
                       <Linkedin className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium">LinkedIn</p>
-                      <p className="text-foreground/70">linkedin.com/in/maharshi-patel1</p>
+                      <p className="text-sm font-medium text-foreground">LinkedIn</p>
+                      <p className="text-sm text-muted-foreground">linkedin.com/in/maharshi-patel1</p>
                     </div>
                   </a>
                   
@@ -180,14 +172,14 @@ export function ContactSection() {
                     href="https://github.com/MaharshiPatel2274" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-md hover:bg-background/50 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg border border-transparent transition-colors hover:border-border hover:bg-secondary/50"
                   >
-                    <div className="bg-primary/10 p-2 rounded-full">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/60">
                       <Github className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium">GitHub</p>
-                      <p className="text-foreground/70">github.com/MaharshiPatel2274</p>
+                      <p className="text-sm font-medium text-foreground">GitHub</p>
+                      <p className="text-sm text-muted-foreground">github.com/MaharshiPatel2274</p>
                     </div>
                   </a>
                 </div>
@@ -207,7 +199,7 @@ export function ContactSection() {
                           <FormControl>
                             <Input
                               {...field}
-                              className="w-full p-2 rounded-md border border-border bg-background/50"
+                              className="w-full bg-background"
                               placeholder="Your Name"
                               required
                             />
@@ -228,7 +220,7 @@ export function ContactSection() {
                               <Input
                                 {...field}
                                 type="email"
-                                className="w-full p-2 pr-10 rounded-md border border-border bg-background/50"
+                                className="w-full bg-background pr-10"
                                 placeholder="your.email@example.com"
                                 required
                                 onBlur={(e) => {
@@ -249,10 +241,10 @@ export function ContactSection() {
                                   <Loader2 className="h-4 w-4 text-muted-foreground animate-spin" />
                                 )}
                                 {emailValidation === "valid" && (
-                                  <Check className="h-4 w-4 text-green-500" />
+                                  <Check className="h-4 w-4 text-success" />
                                 )}
                                 {emailValidation === "invalid" && (
-                                  <X className="h-4 w-4 text-red-500" />
+                                  <X className="h-4 w-4 text-destructive" />
                                 )}
                               </div>
                             )}
@@ -272,7 +264,7 @@ export function ContactSection() {
                             <Textarea
                               {...field}
                               rows={4}
-                              className="w-full p-2 rounded-md border border-border bg-background/50"
+                              className="w-full bg-background"
                               placeholder="Your message..."
                               required
                             />

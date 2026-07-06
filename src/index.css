@@ -1,90 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /* ---------------------------------------------------------------
+     Light theme — soft off-white surfaces, slate text, one steel-blue accent
+  --------------------------------------------------------------- */
   :root {
-    /* Light theme variables */
-    --background: 0 0% 98%;
-    --foreground: 240 10% 3.9%;
+    --background: 210 30% 98%;
+    --foreground: 215 28% 17%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 215 28% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 215 28% 17%;
 
-    --primary: 222 89% 62%;
-    --primary-foreground: 0 0% 98%;
+    /* Single restrained accent (deep slate-blue), tuned for contrast on light */
+    --primary: 215 45% 38%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 260 84% 57%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 214 28% 93%;
+    --secondary-foreground: 215 25% 27%;
 
-    --accent: 174 59% 48%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 214 32% 94%;
+    --accent-foreground: 215 30% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 214 25% 95%;
+    --muted-foreground: 216 12% 42%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 65% 48%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --success: 152 32% 38%;
 
-    --radius: 0.5rem;
+    --border: 214 20% 88%;
+    --input: 214 20% 86%;
+    --ring: 215 45% 42%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --radius: 0.625rem;
+
+    /* Elevated surface + shadows as raw values for arbitrary utilities */
+    --surface: 210 33% 99%;
+    --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+    --shadow-card-hover: 0 8px 24px -8px rgba(16, 24, 40, 0.14);
+    --accent-rgb: 62, 92, 130;
+
+    --sidebar-background: 210 30% 98%;
+    --sidebar-foreground: 215 20% 30%;
+    --sidebar-primary: 215 45% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 32% 94%;
+    --sidebar-accent-foreground: 215 30% 25%;
+    --sidebar-border: 214 20% 88%;
+    --sidebar-ring: 215 45% 42%;
   }
 
+  /* ---------------------------------------------------------------
+     Dark theme — deep blue-black, off-white text, muted slate body
+  --------------------------------------------------------------- */
   .dark {
-    /* Dark theme variables */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 213 33% 7%;
+    --foreground: 214 15% 91%;
 
-    --card: 240 10% 5%;
-    --card-foreground: 0 0% 98%;
+    --card: 214 26% 10%;
+    --card-foreground: 214 15% 91%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 214 28% 9%;
+    --popover-foreground: 214 15% 91%;
 
-    --primary: 222 89% 62%;
-    --primary-foreground: 0 0% 98%;
+    /* Lighter steel-blue in dark so links/eyebrows read clearly on the deep bg */
+    --primary: 214 34% 66%;
+    --primary-foreground: 213 40% 9%;
 
-    --secondary: 260 84% 57%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 214 20% 16%;
+    --secondary-foreground: 214 14% 84%;
 
-    --accent: 174 59% 48%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 214 22% 15%;
+    --accent-foreground: 214 15% 90%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 214 20% 14%;
+    --muted-foreground: 216 13% 62%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 55% 48%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --success: 152 30% 55%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 214 19% 16%;
+    --input: 214 19% 18%;
+    --ring: 214 34% 62%;
+
+    --surface: 214 24% 12%;
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.25);
+    --shadow-card-hover: 0 16px 40px -16px rgba(0, 0, 0, 0.6);
+    --accent-rgb: 144, 166, 196;
+
+    --sidebar-background: 214 26% 10%;
+    --sidebar-foreground: 214 14% 84%;
+    --sidebar-primary: 214 34% 66%;
+    --sidebar-primary-foreground: 213 40% 9%;
+    --sidebar-accent: 214 22% 15%;
+    --sidebar-accent-foreground: 214 15% 90%;
+    --sidebar-border: 214 19% 16%;
+    --sidebar-ring: 214 34% 62%;
   }
 }
 
@@ -95,73 +116,114 @@
 
   html {
     @apply scroll-smooth;
+    scroll-padding-top: 5rem; /* keep anchored sections clear of the sticky nav */
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    /* Subtle, static ambient wash — no animation, no particles */
+    background-image:
+      radial-gradient(55rem 38rem at 50% -12%, hsl(var(--primary) / 0.07), transparent 70%),
+      radial-gradient(45rem 28rem at 100% 0%, hsl(var(--primary) / 0.04), transparent 60%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  /* Consistent, accessible focus ring across all interactive elements */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+
+  /* Quiet, on-brand scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
   }
 }
 
 @layer components {
-  /* Glass-card effect */
+  /* Base surface / card — solid, subtle border, soft shadow (no glass on solid bg) */
+  .surface {
+    @apply bg-card border border-border rounded-xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Kept for backwards-compat: consumers of .glass-card now get the refined surface */
   .glass-card {
-    @apply bg-background/60 backdrop-blur-lg border border-border/50 shadow-lg;
+    @apply bg-card border border-border rounded-xl;
+    box-shadow: var(--shadow-card);
   }
-  
-  /* Interactive link with underline animation */
+
+  /* Small monospace eyebrow above section titles */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.18em] text-primary;
+  }
+
+  /* Underline-on-hover link */
   .animated-link {
-    @apply relative inline-flex overflow-hidden;
+    @apply relative inline-flex;
   }
-  
   .animated-link::after {
-    @apply content-[''] absolute w-full h-0.5 bg-primary bottom-0 left-0 origin-bottom-right scale-x-0 transition-transform duration-300 ease-out;
+    @apply content-[''] absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-300 ease-out;
   }
-  
   .animated-link:hover::after {
-    @apply origin-bottom-left scale-x-100;
+    @apply origin-left scale-x-100;
   }
-  
-  /* Skills badge styling */
+
+  /* Tech-stack tag */
+  .tag {
+    @apply inline-flex items-center rounded-md border border-border bg-secondary/50 px-2.5 py-1 font-mono text-xs font-medium text-muted-foreground transition-colors;
+  }
+
+  /* Legacy alias used by shadcn Badge instances */
   .skill-badge {
-    @apply px-3 py-1 rounded-full text-sm font-medium transition-all duration-300;
-  }
-
-  /* Interactive chess piece styling */
-  .chess-piece-legal-move {
-    @apply absolute rounded-full animate-pulse-glow;
-  }
-  
-  /* Tech gradient text */
-  .tech-gradient-text {
-    @apply bg-gradient-to-r from-tech-blue via-tech-purple to-tech-green text-transparent bg-clip-text;
-  }
-  
-  /* Tech card with animated border */
-  .tech-card {
-    @apply relative rounded-lg p-6 overflow-hidden transition-all duration-300 hover:shadow-xl;
-  }
-  
-  .tech-card::before {
-    @apply content-[''] absolute inset-0 border-2 border-transparent bg-gradient-to-r from-tech-blue via-tech-purple to-tech-green mask-border rounded-lg opacity-0 transition-opacity duration-300;
-  }
-  
-  .tech-card:hover::before {
-    @apply opacity-100;
-  }
-
-  /* Particle element */
-  .particle {
-    @apply absolute rounded-full bg-primary/20 animate-float;
+    @apply rounded-md px-2.5 py-1 text-xs font-medium transition-colors;
   }
 }
 
-/* Utilities for masking */
 @layer utilities {
-  .mask-border {
-    mask: linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  /* Balance headline wrapping for cleaner typographic ragging */
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

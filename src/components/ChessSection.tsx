@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Chessboard } from "react-chessboard";
 import { Chess, Square } from "chess.js";
 import { Button } from "./ui/button";
-import { RotateCw, Award, AlertTriangle, RefreshCw, ChevronUp } from "lucide-react";
+import { RotateCw, Lightbulb, ArrowRight, ChevronUp } from "lucide-react";
 import { toast } from "./ui/use-toast";
 import { Card, CardContent } from "./ui/card";
 import { chessPuzzles, isWhiteTurn } from "@/utils/chessUtils";
+import { SectionHeading } from "./SectionHeading";
 
 export function ChessSection() {
   const [game, setGame] = useState(new Chess());
@@ -246,24 +247,13 @@ export function ChessSection() {
   };
 
   return (
-    <section id="chess" className="py-20 md:py-32 relative">
+    <section id="chess" className="py-20 md:py-28 relative">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary font-medium">Interactive Challenge</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">
-            Checkmate Me
-          </h2>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
-            Test your chess skills with these interactive puzzles. Find the best
-            moves and checkmate your opponent!
-          </p>
-        </motion.div>
+        <SectionHeading
+          eyebrow="Off the clock"
+          title="Checkmate me"
+          description="Chess has been part of my life since I won the India National Championship in 2017. Try one of these puzzles — find the best move and checkmate your opponent."
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
@@ -285,15 +275,15 @@ export function ChessSection() {
                 <>
                   {/* Current Turn Display - ABOVE the board */}
                   <div className="mb-4 text-center">
-                    <Card className="bg-card/80 backdrop-blur-sm border border-border/50">
+                    <Card className="border border-border bg-secondary/40">
                       <CardContent className="pt-4 pb-3 px-4">
-                        <p className="text-lg font-medium flex items-center justify-center gap-2">
-                          {playerTurn ? 
-                            <span className="inline-block w-3 h-3 bg-white rounded-full animate-pulse"></span> : 
-                            <span className="inline-block w-3 h-3 bg-black rounded-full animate-pulse"></span>
-                          }
-                          Current Turn: {playerTurn ? "White" : "Black"}
-                          {playerTurn ? " (Your Turn)" : " (Computer's Turn)"}
+                        <p className="flex items-center justify-center gap-2 text-sm font-medium text-foreground">
+                          <span
+                            className={`inline-block w-3 h-3 rounded-full ring-1 ring-border ${
+                              playerTurn ? "bg-white" : "bg-neutral-900"
+                            }`}
+                          />
+                          {playerTurn ? "Your turn (White)" : "Computer's turn (Black)"}
                         </p>
                       </CardContent>
                     </Card>
@@ -359,17 +349,16 @@ export function ChessSection() {
                           className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-md overflow-hidden"
                         >
                           <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
+                            initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.2, type: "spring" }}
-                            className="bg-green-500/90 text-white font-bold py-4 px-8 rounded-lg shadow-lg"
+                            transition={{ delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                            className="flex flex-col items-center rounded-xl border border-border bg-card/95 py-6 px-8 text-center shadow-card-hover"
                           >
-                            <div className="text-3xl mb-2">✓ Puzzle Solved!</div>
-                            <Button 
-                              onClick={handleNextPuzzle}
-                              className="mt-3 bg-white text-green-700 hover:bg-white/90"
-                            >
-                              Next Puzzle <ChevronUp className="ml-1 w-4 h-4" />
+                            <div className="mb-3 text-lg font-semibold text-success">
+                              Puzzle solved
+                            </div>
+                            <Button onClick={handleNextPuzzle} size="sm">
+                              Next puzzle <ChevronUp className="ml-1 w-4 h-4" />
                             </Button>
                           </motion.div>
                         </motion.div>
@@ -387,31 +376,31 @@ export function ChessSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="glass-card p-6 rounded-lg bg-background/50 backdrop-blur-sm"
+            className="glass-card p-6"
           >
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold">
+                <h3 className="text-lg font-semibold text-foreground">
                   {currentPuzzle?.id
                     ? `Puzzle #${currentPuzzle.id}`
                     : "Loading puzzle..."}
                 </h3>
-                <span className="px-3 py-1 bg-accent/30 rounded-full text-sm font-medium">
+                <span className="rounded-full bg-secondary/60 px-3 py-1 font-mono text-xs text-muted-foreground">
                   {currentPuzzle?.rating
-                    ? `Rating: ${currentPuzzle.rating}`
-                    : "Rating: —"}
+                    ? `Rating ${currentPuzzle.rating}`
+                    : "Rating —"}
                 </span>
               </div>
 
               <div className="mb-4">
-                <h4 className="font-medium mb-2">Status:</h4>
+                <h4 className="mb-2 text-sm font-medium text-muted-foreground">Status</h4>
                 <div
-                  className={`p-3 rounded-md ${
+                  className={`p-3 rounded-lg border text-sm ${
                     status.includes("Correct") || status.includes("solved")
-                      ? "bg-green-500/20 text-green-500 border border-green-500/30"
+                      ? "border-success/30 bg-success/10 text-success"
                       : status.includes("Incorrect")
-                      ? "bg-red-500/20 text-red-500 border border-red-500/30"
-                      : "bg-blue-500/20 text-blue-500 border border-blue-500/30"
+                      ? "border-destructive/30 bg-destructive/10 text-destructive"
+                      : "border-border bg-secondary/40 text-muted-foreground"
                   }`}
                 >
                   <motion.p
@@ -427,13 +416,10 @@ export function ChessSection() {
 
               {currentPuzzle?.themes && (
                 <div className="mb-4">
-                  <h4 className="font-medium mb-2">Themes:</h4>
+                  <h4 className="mb-2 text-sm font-medium text-muted-foreground">Themes</h4>
                   <div className="flex flex-wrap gap-2">
                     {currentPuzzle.themes.slice(0, 3).map((t, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 bg-secondary/10 text-secondary rounded-md text-xs"
-                      >
+                      <span key={i} className="tag">
                         {t}
                       </span>
                     ))}
@@ -442,52 +428,33 @@ export function ChessSection() {
               )}
 
               <div className="mb-6">
-                <h4 className="font-medium mb-2">Current Task:</h4>
-                <p className="text-foreground/70">
+                <h4 className="mb-2 text-sm font-medium text-muted-foreground">Current task</h4>
+                <p className="text-sm text-muted-foreground">
                   {playerTurn
-                    ? "Your turn – find the best move!"
-                    : "Computer is thinking..."}
+                    ? "Your turn — find the best move."
+                    : "Computer is thinking…"}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-3 mb-4">
-                <Button
-                  onClick={handleReset}
-                  variant="outline"
-                  className="flex items-center gap-1 hover:bg-background/80"
-                >
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={handleReset} variant="outline" size="sm">
                   <RotateCw className="w-4 h-4" />
                   Reset
                 </Button>
-                <Button
-                  onClick={handleShowHint}
-                  variant="outline"
-                  className="flex items-center gap-1 hover:bg-background/80"
-                >
-                  <AlertTriangle className="w-4 h-4" />
+                <Button onClick={handleShowHint} variant="outline" size="sm">
+                  <Lightbulb className="w-4 h-4" />
                   Hint
                 </Button>
-                <Button 
-                  className="flex items-center gap-1 bg-primary/90 hover:bg-primary" 
-                  onClick={handleNextPuzzle}
-                >
-                  <Award className="w-4 h-4" />
-                  Next Puzzle
-                </Button>
-                <Button
-                  onClick={handleNextPuzzle}
-                  variant="secondary"
-                  className="flex items-center gap-1"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  New Puzzle
+                <Button onClick={handleNextPuzzle} size="sm">
+                  <ArrowRight className="w-4 h-4" />
+                  Next puzzle
                 </Button>
               </div>
             </div>
 
-            <div>
-              <h4 className="font-medium mb-2">Move History:</h4>
-              <div className="bg-background/80 backdrop-blur-sm border border-border/50 p-3 rounded-md h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+            <div className="mt-6">
+              <h4 className="mb-2 text-sm font-medium text-muted-foreground">Move history</h4>
+              <div className="rounded-lg border border-border bg-secondary/30 p-3 h-36 overflow-y-auto">
                 {moveHistory.length ? (
                   <ol className="list-decimal pl-5 space-y-1">
                     {moveHistory.map((m, i) => (
