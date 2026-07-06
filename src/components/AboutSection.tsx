@@ -3,7 +3,7 @@ import { MapPin, GraduationCap, Compass } from "lucide-react";
 
 const facts = [
   { icon: <MapPin className="w-3.5 h-3.5" />, label: "Tempe, Arizona" },
-  { icon: <GraduationCap className="w-3.5 h-3.5" />, label: "Arizona State University" },
+  { icon: <GraduationCap className="w-3.5 h-3.5" />, label: "B.S. Computer Science · ASU" },
   { icon: <Compass className="w-3.5 h-3.5" />, label: "VR · Full-Stack · AI" },
 ];
 
@@ -47,11 +47,11 @@ export function AboutSection() {
 
             <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground text-pretty">
               <p>
-                I&apos;m Maharshi Niraj Patel, a Computer Science student driven by
-                immersive technology, intelligent automation, and user-focused
-                software design. I work at the intersection of engineering and
-                experience &mdash; building systems that blend functionality with
-                usability.
+                I&apos;m Maharshi Niraj Patel, a software engineer and recent
+                Computer Science graduate driven by immersive technology,
+                intelligent automation, and user-focused software design. I work
+                at the intersection of engineering and experience &mdash; building
+                systems that blend functionality with usability.
               </p>
               <p>
                 I&apos;ve led QA efforts for advanced VR applications, engineered

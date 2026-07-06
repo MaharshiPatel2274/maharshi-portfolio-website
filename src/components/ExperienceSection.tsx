@@ -140,7 +140,7 @@ export function ExperienceSection() {
         <SectionHeading
           eyebrow="Experience"
           title="Where I've worked"
-          description="From VR quality assurance to technical operations and data analysis — building a diverse foundation across software engineering and problem-solving."
+          description="From full-stack development to VR automation and quality engineering — building software and tooling that ships to real users and teams."
         />
 
         {/* Desktop carousel */}

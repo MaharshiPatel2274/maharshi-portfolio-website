@@ -275,8 +275,8 @@ export function ChessSection() {
       }
 
       // Try to make the move
-      const moveResult = onDrop(selectedSquare, square);
-      
+      onDrop(selectedSquare, square);
+
       // Clear selection and highlights regardless of move success
       setSelectedSquare(null);
       setHighlightSquares({});

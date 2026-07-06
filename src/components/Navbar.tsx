@@ -88,9 +88,6 @@ export function Navbar() {
                         : "text-muted-foreground hover:text-foreground"
                     )}
                   >
-                    <span className="font-mono text-xs text-primary/70 mr-1">
-                      {String(navLinks.indexOf(link) + 1).padStart(2, "0")}.
-                    </span>
                     {link.label}
                     {isActive && (
                       <motion.span
@@ -136,21 +133,18 @@ export function Navbar() {
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="flex flex-col">
-                {navLinks.map((link, i) => (
+                {navLinks.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
                       className={cn(
-                        "flex items-center gap-3 py-3 text-base font-medium transition-colors",
+                        "flex items-center py-3 text-base font-medium transition-colors",
                         activeId === link.id
                           ? "text-foreground"
                           : "text-muted-foreground hover:text-foreground"
                       )}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="font-mono text-xs text-primary/70">
-                        {String(i + 1).padStart(2, "0")}.
-                      </span>
                       {link.label}
                     </a>
                   </li>

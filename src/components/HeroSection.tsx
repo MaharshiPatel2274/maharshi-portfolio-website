@@ -81,10 +81,11 @@ export function HeroSection() {
             variants={item}
             className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-muted-foreground text-pretty"
           >
-            I&apos;m a Computer Science student who works at the intersection of
-            immersive technology, automation, and full-stack development. I&apos;ve
-            led QA for advanced VR applications, built tooling that streamlines
-            real workflows, and shipped web and iOS apps end to end.
+            I&apos;m a software engineer and recent Computer Science graduate who
+            works at the intersection of immersive technology, automation, and
+            full-stack development. I&apos;ve led QA for advanced VR applications,
+            built tooling that streamlines real workflows, and shipped web and
+            mobile apps end to end.
           </motion.p>
 
           <motion.div variants={item} className="mt-9 flex flex-wrap gap-3">
