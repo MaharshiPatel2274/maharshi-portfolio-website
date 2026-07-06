@@ -1,73 +1,101 @@
-# Welcome to your Lovable project
+# 🌐 Maharshi Niraj Patel — Portfolio Website
 
-## Project info
+[[Website](https://maharshi-patel.com/)]
+[[GitHub](https://github.com/MaharshiPatel2274)]
 
-**URL**: https://lovable.dev/projects/808968ff-3139-4ee9-9625-794460ac94ea
+---
 
-## How can I edit this code?
+## 📖 Overview
 
-There are several ways of editing your application.
+This repository contains the source code for my personal portfolio website — [maharshi-patel.com](https://maharshi-patel.com/).  
+It’s a **modern, full-stack developer portfolio** designed to highlight my expertise in **software engineering, VR/AR development, DevOps pipelines, AI/ML, and automation tools**.
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/808968ff-3139-4ee9-9625-794460ac94ea) and start prompting.
+## 🧰 Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React.js • Next.js • Tailwind CSS • TypeScript • Redux • Shadcn/UI  
+- **Backend / API**: Node.js • Express.js • REST APIs • Firebase • Supabase • PostgreSQL • MongoDB  
+- **Infrastructure**: AWS (EC2, S3, IAM, RDS, Lambda) • Docker • Kubernetes • Terraform • GitHub Actions  
+- **AI/ML & Data**: OpenAI API • Hugging Face • LangChain • Pandas • NumPy  
+- **Testing & CI/CD**: Selenium • Jenkins • GitLab • Black/White Box Testing • Regression Testing  
+- **Other Tools**: Unity • Jira • VS Code • Google Workspace  
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## ✨ Features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- 📱 **Responsive & Accessible** — optimized across devices, ARIA-ready.  
+- 🚀 **Performance-Focused** — lazy loading, optimized builds, CDN-backed assets.  
+- 🧩 **Modular Architecture** — clean component structure and reusable design patterns.  
+- 🔗 **CI/CD Integrated** — auto-deploys with GitHub Actions & containerized workflows.  
+- 🤖 **AI-Enhanced** — experimentation with AI APIs and ML-powered demos.  
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠 Local Development
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Clone the repo:
 
-# Step 3: Install the necessary dependencies.
-npm i
+```bash
+git clone https://github.com/your-username/portfolio.git
+cd portfolio
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Run dev server:
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Build for production:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm run build
+```
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📂 Project Highlights
 
-## What technologies are used for this project?
+Some of the featured projects showcased on this portfolio:
 
-This project is built with:
+- **[COSMiQ: AI-Powered Orbital Debris Collector](https://github.com/MaharshiPatel2274/Debris-Collector)**  
+  Autonomous satellite system predicting and clearing orbital debris using **Python, ML, and orbital mechanics APIs**.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **NeuroPilot — AI Smart Browser**  
+  Chromium-based browser with **real-time health data simulation** and **AI-driven productivity workflows**.
 
-## How can I deploy this project?
+- **Maya Playblast Tool**  
+  Autodesk Maya automation tool for **rapid playblast generation**, saving 95% of animation workflow time.
 
-Simply open [Lovable](https://lovable.dev/projects/808968ff-3139-4ee9-9625-794460ac94ea) and click on Share -> Publish.
+- **Unity VR Automation Tools @ EdPlus ASU**  
+  VR build pipelines, QA automation, and CI/CD workflows improving **release efficiency** by 40%+.
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 📜 License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+This project is licensed under the **MIT License** — free to use, modify, and share with attribution.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
+
+## 👤 Author
+
+**Maharshi Niraj Patel**  
+- 🎓 B.S. Computer Science @ Arizona State University (May 2026)  
+- 🔬 Focus: **Software Engineering | VR/AR | AI/ML | DevOps | Automation**  
+- 🌐 [Website](https://maharshi-patel.com/) • [LinkedIn](https://www.linkedin.com/in/maharshi-patel1/) • [GitHub](https://github.com/MaharshiPatel2274)  
+- 📫 Contact: mpate125@asu.edu  
+
+---
+
+> *“I design systems that merge **scalability, automation, and immersive tech** — bridging software engineering with real-world impact.”*

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code2, Database, Globe, Server, Sparkles, Wrench } from "lucide-react";
+import { Code2, Database, Globe, Server, Sparkles, Wrench, Cpu, Package } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 
 interface SkillCategory {
@@ -12,32 +12,42 @@ const skillsData: SkillCategory[] = [
   {
     name: "Programming Languages",
     icon: <Code2 className="w-5 h-5" />,
-    skills: ["C", "C++", "Java", "JavaScript", "C#", "HTML", "Python", "Unity", "MATLAB"],
+    skills: ["TypeScript", "JavaScript", "Python", "Swift", "C", "C++", "Java", "C#", "SQL", "HTML/CSS", "Bash", "MATLAB"],
   },
   {
     name: "Frameworks & Libraries",
     icon: <Sparkles className="w-5 h-5" />,
-    skills: ["ReactJS", "Selenium", "NodeJS"],
+    skills: ["React.js", "React Native", "Next.js", "Express.js", "Redux", "SwiftUI", "TailwindCSS", "Framer Motion", "Electron.js", "Streamlit", "shadcn/ui", "lucide-react"],
+  },
+  {
+    name: "Runtime Environments & Package Managers",
+    icon: <Package className="w-5 h-5" />,
+    skills: ["Node.js", "NPM", "Yarn"],
   },
   {
     name: "DevOps & Tooling",
     icon: <Wrench className="w-5 h-5" />,
-    skills: ["GitLab", "Jenkins", "CI/CD", "Docker", "Version Control", "Perforce"],
+    skills: ["GitHub Actions", "GitLab", "Jenkins", "Docker", "Kubernetes", "Terraform", "CI/CD", "Vercel", "Sourcetree", "Perforce", "Jira", "Git"],
   },
   {
     name: "Databases & Data",
     icon: <Database className="w-5 h-5" />,
-    skills: ["SQL", "Database Design", "Data Visualization", "Data Analysis"],
+    skills: ["SQL", "PostgreSQL", "MongoDB", "NoSQL", "Firebase", "Supabase", "SwiftData", "JSON", "REST APIs", "Pandas", "NumPy", "Matplotlib", "Data Visualization"],
   },
   {
     name: "Cloud Computing",
     icon: <Server className="w-5 h-5" />,
-    skills: ["AWS", "Azure", "Cloud Services"],
+    skills: ["AWS (EC2, S3, IAM, RDS)", "AWS Lambda", "Azure", "Vercel", "Serverless Architecture", "API Performance Tuning"],
   },
   {
-    name: "Other Skills",
+    name: "AI / ML & Integration",
+    icon: <Cpu className="w-5 h-5" />,
+    skills: ["OpenAI API", "Hugging Face", "LangChain", "Prompt Engineering", "API Integration", "WHOOP API", "EmailJS", "CelesTrak", "ESA DISCOS", "Zoo API", "SimScale API", "Wokwi"],
+  },
+  {
+    name: "Testing & Other Skills",
     icon: <Globe className="w-5 h-5" />,
-    skills: ["VR Testing", "Technical Writing", "Problem Solving", "Chess", "Team Collaboration"],
+    skills: ["Selenium", "Regression Testing", "Black/White Box Testing", "Automation Scripting", "UX/UI Design", "Figma", "System Design", "VR Testing", "Technical Writing", "Agile & SDLC", "CAD Modeling", "Hardware Simulation", "PCB Design"],
   },
 ];
 
