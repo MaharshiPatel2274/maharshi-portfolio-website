@@ -2,6 +2,27 @@ import { ProjectItem } from "@/types/project";
 
 export const projectsData: ProjectItem[] = [
   {
+    title: "Asset Metadata Manager",
+    description: "An Electron desktop application for Unity asset management with metadata indexing, FBX thumbnail rendering, Perforce integration, tagging, and version control.",
+    extendedDescription: {
+      overview: "Built at EdPlus at ASU to streamline Unity asset pipelines",
+      achievement: "A cross-platform desktop tool that indexes, previews, and version-controls Unity assets, giving teams a fast, searchable interface over large asset libraries.",
+      techStack: "Electron.js, React, TypeScript, Node.js, Unity, JSON",
+      features: [
+        "Metadata indexing and fast tag-based search across asset libraries",
+        "FBX thumbnail rendering for instant visual previews",
+        "Perforce integration for version control and history",
+        "Tagging system for organizing and filtering assets",
+        "Cross-platform Electron desktop packaging"
+      ],
+      impact: "Centralized Unity asset discovery and versioning into a single desktop workflow"
+    },
+    gradient: "bg-gradient-to-br from-slate-500/20 to-blue-500/20",
+    technologies: ["Electron.js", "React", "TypeScript", "Node.js", "Unity"],
+    // TODO: add repoLink once the repo is public, and replace imageUrl with a real screenshot
+    imageUrl: "/placeholder.svg",
+  },
+  {
     title: "PRiSM: Prompt-to-Hardware Generator",
     description: "An AI-powered hardware design automation platform that converts natural language prompts into complete hardware schematics, CAD models, and simulation-ready configurations.",
     extendedDescription: {

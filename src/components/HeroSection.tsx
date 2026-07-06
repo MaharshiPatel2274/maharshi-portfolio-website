@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, ArrowDown } from "lucide-react";
+import { Github, Linkedin, ArrowDown, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { TypeWriter } from "./TypeWriter";
+
+// Place the file at public/MaharshiPatel_Resume.pdf
+const RESUME_URL = "/MaharshiPatel_Resume.pdf";
 
 const roles = [
   "Full-Stack Developer",
@@ -93,6 +96,12 @@ export function HeroSection() {
               <a href="#projects">View my work</a>
             </Button>
             <Button size="lg" variant="outline" asChild>
+              <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+                <FileText className="w-4 h-4" />
+                Résumé
+              </a>
+            </Button>
+            <Button size="lg" variant="ghost" asChild>
               <a href="#contact">Get in touch</a>
             </Button>
           </motion.div>

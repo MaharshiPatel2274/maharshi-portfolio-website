@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
-import { Menu, X } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+// Place the file at public/MaharshiPatel_Resume.pdf
+const RESUME_URL = "/MaharshiPatel_Resume.pdf";
 
 const navLinks = [
   { label: "About", href: "#about-me", id: "about-me" },
@@ -101,7 +104,13 @@ export function Navbar() {
               );
             })}
           </ul>
-          <div className="ml-2 pl-2 border-l border-border">
+          <div className="ml-2 flex items-center gap-2 pl-2 border-l border-border">
+            <Button size="sm" variant="outline" asChild>
+              <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+                <FileText className="w-4 h-4" />
+                Résumé
+              </a>
+            </Button>
             <ThemeToggle />
           </div>
         </nav>
@@ -150,6 +159,17 @@ export function Navbar() {
                   </li>
                 ))}
               </ul>
+              <Button variant="outline" className="mt-4 w-full" asChild>
+                <a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <FileText className="w-4 h-4" />
+                  Résumé
+                </a>
+              </Button>
             </nav>
           </motion.div>
         )}
