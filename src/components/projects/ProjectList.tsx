@@ -40,7 +40,7 @@ export function ProjectList({ projects }: ProjectListProps) {
     >
       {projects.map((project, index) => (
         <ProjectCard 
-          key={index}
+          key={project.title}
           project={project} 
           index={index} 
           itemVariants={itemVariants} 

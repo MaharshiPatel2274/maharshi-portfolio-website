@@ -5,8 +5,7 @@ import { Button } from "./ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-// Place the file at public/MaharshiPatel_Resume.pdf
-const RESUME_URL = "/MaharshiPatel_Resume.pdf";
+const RESUME_URL = "/resume";
 
 const navLinks = [
   { label: "About", href: "#about-me", id: "about-me" },

@@ -3,8 +3,7 @@ import { Github, Linkedin, ArrowDown, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { TypeWriter } from "./TypeWriter";
 
-// Place the file at public/MaharshiPatel_Resume.pdf
-const RESUME_URL = "/MaharshiPatel_Resume.pdf";
+const RESUME_URL = "/resume";
 
 const roles = [
   "Full-Stack Developer",

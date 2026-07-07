@@ -21,7 +21,7 @@ export function AboutSection() {
           >
             <div className="relative aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-border shadow-card">
               <img
-                src="/lovable-uploads/85b72fe2-b699-4d47-a712-11755bc4f45a.png"
+                src="/maharshi-49.jpg"
                 alt="Maharshi Niraj Patel"
                 className="object-cover w-full h-full"
                 loading="lazy"

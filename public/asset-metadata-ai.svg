@@ -1,0 +1,73 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="60" x2="1080" y2="615" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="340" y1="180" x2="860" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#34D399"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111827"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="36" fill="url(#bg)"/>
+  <circle cx="180" cy="150" r="90" fill="#38BDF8" fill-opacity="0.14"/>
+  <circle cx="1015" cy="555" r="130" fill="#34D399" fill-opacity="0.12"/>
+  <circle cx="930" cy="120" r="58" fill="#F59E0B" fill-opacity="0.08"/>
+
+  <g opacity="0.95">
+    <rect x="126" y="118" width="948" height="438" rx="28" fill="url(#panel)" stroke="#334155" stroke-width="2"/>
+    <rect x="160" y="155" width="260" height="44" rx="12" fill="#0F172A" stroke="#334155"/>
+    <circle cx="188" cy="177" r="8" fill="#60A5FA"/>
+    <circle cx="214" cy="177" r="8" fill="#34D399"/>
+    <circle cx="240" cy="177" r="8" fill="#F59E0B"/>
+    <rect x="286" y="166" width="104" height="22" rx="8" fill="#1E293B"/>
+  </g>
+
+  <g>
+    <rect x="166" y="228" width="292" height="262" rx="22" fill="#0F172A" stroke="#334155"/>
+    <rect x="196" y="258" width="132" height="18" rx="6" fill="#1D4ED8" fill-opacity="0.8"/>
+    <rect x="196" y="292" width="208" height="14" rx="5" fill="#334155"/>
+    <rect x="196" y="320" width="176" height="14" rx="5" fill="#334155"/>
+    <rect x="196" y="348" width="220" height="14" rx="5" fill="#334155"/>
+    <rect x="196" y="390" width="88" height="30" rx="10" fill="#1D4ED8"/>
+    <rect x="296" y="390" width="102" height="30" rx="10" fill="#1E293B" stroke="#334155"/>
+    <circle cx="385" cy="343" r="30" fill="#0B1220" stroke="#334155"/>
+    <circle cx="385" cy="343" r="14" fill="#60A5FA"/>
+  </g>
+
+  <g>
+    <rect x="506" y="228" width="528" height="262" rx="22" fill="#0B1220" stroke="#334155"/>
+    <rect x="540" y="260" width="170" height="22" rx="8" fill="#1E293B"/>
+    <rect x="540" y="300" width="260" height="12" rx="4" fill="#334155"/>
+    <rect x="540" y="326" width="210" height="12" rx="4" fill="#334155"/>
+    <rect x="540" y="352" width="290" height="12" rx="4" fill="#334155"/>
+
+    <g transform="translate(538 394)">
+      <rect width="92" height="34" rx="12" fill="#11213A" stroke="#2563EB"/>
+      <text x="46" y="22" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" fill="#93C5FD">FBX</text>
+    </g>
+    <g transform="translate(642 394)">
+      <rect width="112" height="34" rx="12" fill="#11213A" stroke="#34D399"/>
+      <text x="56" y="22" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" fill="#A7F3D0">Perforce</text>
+    </g>
+    <g transform="translate(766 394)">
+      <rect width="98" height="34" rx="12" fill="#11213A" stroke="#F59E0B"/>
+      <text x="49" y="22" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" fill="#FCD34D">Tags</text>
+    </g>
+
+    <g transform="translate(860 260)">
+      <rect width="120" height="120" rx="28" fill="url(#accent)" fill-opacity="0.16" stroke="#34D399"/>
+      <path d="M60 28L68 52L92 60L68 68L60 92L52 68L28 60L52 52L60 28Z" fill="#93C5FD"/>
+      <path d="M92 86L96 98L108 102L96 106L92 118L88 106L76 102L88 98L92 86Z" fill="#A7F3D0"/>
+    </g>
+  </g>
+
+  <g opacity="0.85">
+    <path d="M464 215C520 176 624 172 674 204" stroke="#60A5FA" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 12"/>
+    <path d="M460 494C546 530 710 534 836 490" stroke="#34D399" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 12"/>
+  </g>
+</svg>

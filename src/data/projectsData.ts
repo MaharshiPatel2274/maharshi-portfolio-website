@@ -19,8 +19,8 @@ export const projectsData: ProjectItem[] = [
     },
     gradient: "bg-gradient-to-br from-slate-500/20 to-blue-500/20",
     technologies: ["Electron.js", "React", "TypeScript", "Node.js", "Unity"],
-    // TODO: add repoLink once the repo is public, and replace imageUrl with a real screenshot
-    imageUrl: "/placeholder.svg",
+    year: "EdPlus",
+    imageUrl: "/asset-metadata-ai.svg",
   },
   {
     title: "PRiSM: Prompt-to-Hardware Generator",
